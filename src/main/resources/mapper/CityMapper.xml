@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="edu.cityu.ds.report.mapper.CityMapper">
+
+    <select id="listCategory" resultType="edu.cityu.ds.report.entity.City">
+        SELECT city_id, city FROM cities
+    </select>
+
+
+</mapper>

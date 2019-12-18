@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="edu.cityu.ds.report.mapper.MemberMapper">
+
+    <select id="getCount" resultType="Integer">
+        SELECT count(*) FROM members
+    </select>
+
+
+    <select id="listGroupNumCity" parameterType="String" resultType="java.util.HashMap">
+        SELECT city_id, count(*) as num
+        FROM members
+        GROUP BY city_id
+    </select>
+
+    <select id="listGroupNumByDate" resultType="java.util.HashMap">
+        SELECT DATE_FORMAT(created, #{period}) as time, count(*) as num
+        FROM members
+        <where>
+            <if test="cityId != null">
+                city_id = #{cityId}
+                <if test="startDate != null and endDate != null">
+                    and created &gt; #{startDate} and created &lt; #{endDate}
+                </if>
+                <if test="startDate != null and endDate == null">
+                    and created &gt; #{startDate}
+                </if>
+                <if test="startDate == null and endDate != null">
+                    and created &lt; #{endDate}
+                </if>
+            </if>
+            <if test="cityId == null">
+                <if test="startDate != null and endDate != null">
+                    created &gt; #{startDate} and created &lt; #{endDate}
+                </if>
+                <if test="startDate != null and endDate == null">
+                    created &gt; #{startDate}
+                </if>
+                <if test="startDate == null and endDate != null">
+                    created &lt; #{endDate}
+                </if>
+            </if>
+        </where>
+        GROUP BY time
+    </select>
+</mapper>
