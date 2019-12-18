@@ -1,6 +1,5 @@
 package edu.cityu.ds.report.controller;
 
-import edu.cityu.ds.report.entity.Group;
 import edu.cityu.ds.report.entity.Result;
 import edu.cityu.ds.report.service.GroupService;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -49,33 +48,40 @@ public class GroupController {
 		}
 	}
 	
-	@RequestMapping(value = "/countTrend", method = RequestMethod.POST)
+	@RequestMapping(value = "/increasedCountTrend", method = RequestMethod.POST)
 	public Result getTimeTrend(@RequestBody Map<String, Object>map, HttpServletRequest request){
 		Timestamp lTime = Timestamp.valueOf(map.get("lTime").toString());
 		Timestamp rTime = Timestamp.valueOf(map.get("rTime").toString());
-		List<Map<String, List>> mapList = new ArrayList<Map<String, List>>();
-		return null;
+		String city = map.get("city").toString();
+		Map<String, List>  mapResult = groupService.getIncreasedCountTrend(lTime, rTime, city);
+		if(map!=null && map.size()!=0){
+			return new Result(200, null, null,  mapResult);
+		}else{
+			return new Result(202, null, "Program Failed!", null);
+		}
 	}
 	
-//	/**
-//	 *	var data = [trace1, trace2, trace3];
-//	 *	var trace3 = {
-//	 *   		x: [1, 2, 3, 4],
-//	 *  		y: [12, 13, 14, 15],
-//	 *   		mode: 'markers',
-//	 *   		marker: {
-//	 *     		size: [18, 11, 2, 3],
-//	 *       		color: ['rgb(120,120,120)', 'rgb(120,120,120)', 'red', 'rgb(120,120,120)'],
-//	 *       		opacity: [0.2, 0.2, 0.6, 0.2]
-//	 *   		},
-//	 *   		type: 'scatter'
-//	 * 	};
-//	 */
-//	@RequestMapping(value = "/countTrend", method = RequestMethod.POST)
-//	public Result getTimeTrend(@RequestBody Map<String, Object>map, HttpServletRequest request){
-//		Timestamp lTime = Timestamp.valueOf(map.get("lTime").toString());
-//		Timestamp rTime = Timestamp.valueOf(map.get("rTime").toString());
-//		List<Map<String, List>> mapList = new ArrayList<Map<String, List>>();
-//
-//	}
+	/**
+	 *	var data = [trace1, trace2, trace3];
+	 *	var trace3 = {
+	 *   		x: [1, 2, 3, 4],
+	 *  		y: [12, 13, 14, 15],
+	 *   		mode: 'markers',
+	 *   		marker: {
+	 *     		size: [18, 11, 2, 3],
+	 *       		color: ['rgb(120,120,120)', 'rgb(120,120,120)', 'red', 'rgb(120,120,120)'],
+	 *       		opacity: [0.2, 0.2, 0.6, 0.2]
+	 *   		},
+	 *   		type: 'scatter'
+	 * 	};
+	 */
+	@RequestMapping(value = "/categoryGroups", method = RequestMethod.POST)
+	public Result getCategoryGroups(HttpServletRequest request){
+		List<Map<String, List>> mapList = groupService.getCategoryGroups();
+		if(mapList!=null){
+			return new Result(200, null, null, mapList);
+		}else{
+			return new Result(202, null, "Program Failed!", null);
+		}
+	}
 }
