@@ -43,5 +43,12 @@ public class LoginController {
             return "forward:login";
         }
     }
+    
+    @RequestMapping(value = "/doLogout", method = RequestMethod.POST)
+    @Operation(description = "User Logout")
+    public String logout(HttpSession session, HttpServletRequest  request){
+        session.invalidate();
+        return "login";
+    }
 
 }

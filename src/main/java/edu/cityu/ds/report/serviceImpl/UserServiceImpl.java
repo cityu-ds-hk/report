@@ -7,6 +7,9 @@ import edu.cityu.ds.report.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.Map;
+
 @Service
 public class UserServiceImpl implements UserService {
 
@@ -24,5 +27,15 @@ public class UserServiceImpl implements UserService {
         if(user == null)
             throw new EntityNotExistException(String.format("user %d not exist", id), "");
         return user;
+    }
+    
+    @Override
+    public int getCount() {
+        return 0;
+    }
+    
+    @Override
+    public Map<String, List> getAreaCount() {
+        return null;
     }
 }
