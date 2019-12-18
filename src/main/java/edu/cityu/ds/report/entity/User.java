@@ -1,8 +1,17 @@
 package edu.cityu.ds.report.entity;
 
+import io.swagger.v3.oas.annotations.media.Schema;
+
+@Schema(description = "User Entity")
 public class User {
+    
+//    @ApiModelProperty("user id")
     private int userId;
+    
+//    @ApiModelProperty("user name")
     private String userName;
+    
+//    @ApiModelProperty("user password")
     private String password;
 
     public int getUserId() {

@@ -1,13 +1,26 @@
 package edu.cityu.ds.report.entity;
 
+
+import io.swagger.v3.oas.annotations.media.Schema;
+
 import java.util.Date;
 
+@Schema(description = "Result Entity")
 public class Result {
-
+    
+//    @ApiModelProperty("result status")
     private int status;
+    
+//    @ApiModelProperty("result code")
     private String code;
+    
+//    @ApiModelProperty("result message")
     private String message;
+    
+//    @ApiModelProperty("result created time")
     private long timestamp = new Date().getTime();
+    
+//    @ApiModelProperty("result data")
     private Object data;
 
     public Result(int status, String code, String message, Object data) {
