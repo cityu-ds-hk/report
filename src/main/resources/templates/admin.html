@@ -36,6 +36,15 @@
 </div>
 <div class="layui-clear"></div>
 
+<!-- 轮播图 -->
+<div class="layui-carousel" id="test1">
+  <div carousel-item  class="_carousel">
+    <div><img src="../img/group_network.png"></div>
+    <div><img src="../img/category_network.png" ></div>
+    <div><img src="../img/wordcloud.png" ></div>
+  </div>
+</div>
+
 <!-- 中间布局 -->
 <div class="layui-container" style="margin-top: 30px">
 
@@ -131,15 +140,44 @@
                 </div>
 
                 <!-- 第三部分 -->
-                <div class = "layui-row" >
-                    
+                <div class = "layui-row" > 
                     <!-- 分地区的小组数量统计图（分category） -->
-                    <div class="layui-col-md12" id="Group-ScatterChart">
-
-
-                    </div>
+                    <div class="layui-col-md12" id="Group-ScatterChart"></div>
                 </div>
                 
+                
+                <!-- 第四部分 -->
+                <!-- groupsize 柱状分布图 -->
+                <div class="layui-card" style="background-color: white;border-radius: 5px;">
+                  <div class="layui-card-header">小组数量分布图</div>
+                  <div class="layui-card-body">
+                      <!-- 城市选择下拉框 -->
+                      <div class="layui-row">
+                          <div class="layui-col-md4">
+                              <form class="layui-form" action="" name='city1'>
+                                  <div class="layui-form-item">
+                                      <label class="layui-form-label">城市</label>
+                                      <div class="layui-input-block">
+                                      <select name="interest">
+                                          <option value=""></option>
+                                          <option value="0">New York</option>
+                                          <option value="1" selected="">Chicago</option>
+                                          <option value="2">San Francisco</option>
+                                      </select>
+                                      </div>
+                                  </div>
+                              </form>
+                          </div>
+                      </div>
+                      <!-- 柱状图 -->
+                      <div class="layui-row">
+                          <div class="layui-col-md3">&nbsp;</div>
+                          <div class="layui-col-md6" id="GroupSize-BarChart"></div>
+                          <div class="layui-col-md3">&nbsp;</div>
+                      </div>
+                  </div>
+              </div>
+
               </div>
                 <div style="height: 800px;" class="layui-tab-item  iframe-container"><iframe name="member_target" scrolling="no"  frameborder="0" class="iframe" onload="riframe"></iframe></div>
                 <div style="height: 800px;" class="layui-tab-item iframe-container"><iframe name="event_target" scrolling="no"  frameborder="0" class="iframe" onload="riframe"></iframe></div>

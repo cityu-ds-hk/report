@@ -102,6 +102,23 @@ window.onload = function(){
   plot_category_scatter('Group-ScatterChart', 'group/categoryGroups', layout);
 
 
+  //GroupSize Barchart
+  var group_bar_data = [
+    {
+      x: ['giraffes', 'orangutans', 'monkeys'],
+      y: [20, 14, 23],
+      type: 'bar'
+    }
+  ];
+
+  var layout1 = {
+    height: 400,
+    width: 500
+  };
+
+  Plotly.newPlot('GroupSize-BarChart', group_bar_data,layout1);
+
+
 }
 
 
@@ -109,12 +126,26 @@ window.onload = function(){
 
 //layui.js
 //不同模块切换
-layui.use('element', function(){
+layui.use(['element','laydate','layer','carousel'], function(){
   var element = layui.element;
-});
-
-layui.use('laydate', function(){
   var laydate = layui.laydate;
+  var $ = layui.$;
+  var layer = layui.layer;
+  var carousel = layui.carousel;
+
+  //轮播图
+  carousel.render({
+    elem: '#test1'
+    ,width: '100%' //设置容器宽度
+    ,arrow: 'always' //始终显示箭头
+    ,height: '490px'
+    //,anim: 'updown' //切换动画方式
+    });
+
+
+    // 表单
+    var form = layui.form;
+
   
   //执行一个laydate实例
   laydate.render({
@@ -124,8 +155,9 @@ layui.use('laydate', function(){
   laydate.render({
     elem: '#end-time' //指定元素
   });
-
 });
+
+
 
 
 
