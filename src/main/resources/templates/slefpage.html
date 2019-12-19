@@ -1,0 +1,107 @@
+<html>
+<head>
+    <title>login</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="../static.css/layui.css">
+    <script src="../static/js/layui.js"></script>
+</head>
+<body>
+<div class="layui-fluid">
+    <div class="layui-row">
+        <div class="layui-col-sm3"><hr class="layui-bg-white"> </div>
+        <div class="layui-col-sm6" style="margin-top:150px;" >
+            <form class="layui-form" action="">
+                <div class="layui-form-item">
+                    <label class="layui-form-label">用户ID</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="userId" lay-verify="userId"
+                               readonly="readonly" autocomplete="off" placeholder="${user.userId}" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">身份</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="tag" lay-verify="tag"
+                               readonly="readonly" autocomplete="off" placeholder="<%=tag%>" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">用户名</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="userName" lay-verify="userName"
+                               readonly="readonly" autocomplete="off" placeholder="${user.userName}" class="layui-input">
+                        <button type="button" class="layui-btn layui-btn-sm layui-btn-primary" id="userNameEdit">
+                            <i class="layui-icon">&#xe642;</i>
+                        </button>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">密码</label>
+                    <div class="layui-input-block">
+                        <input type="password" name="password" lay-verify="password"
+                               readonly="readonly" placeholder="${user.password}" autocomplete="off" class="layui-input">
+                        <button type="button" class="layui-btn layui-btn-sm layui-btn-primary" id="pwdEdit">
+                            <i class="layui-icon">&#xe642;</i>
+                        </button>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <div class="layui-input-block">
+                        <button class="layui-btn" lay-submit lay-filter="selfSubmit">个人信息修改提交</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="layui-col-sm3"><hr class="layui-bg-white"> </div>
+    </div>
+</div>
+<script>
+    layui.use(['jquery', 'form', 'layer'], function() {
+        var $ = layui.$;
+        var form = layui.form;
+        var layer = layui.layer;
+
+        form.verify({
+            userName: function (value, item) { //value：表单的值、item：表单的DOM对象
+                if (value.length == 0) {
+                    return "用户名不能为空";
+                }
+            },
+            password: [
+                /^[\S]{6,12}$/
+                ,'密码必须6到12位，且不能出现空格'
+            ]
+        });
+
+        form.on('submit(selfSubmit)', function (data) {
+            $.ajax({
+                url: "<%=basePath%>user/selfEdit",
+                type:"POST",
+                async: true,
+                data:JSON.stringify(data.field),
+                dataType:'json',
+                contentType: "application/json; charset=utf-8",
+                success:function(result){
+                    if(result.code == "0000"){
+                        //保存用户信息到session中
+                        window.sessionStorage.setItem("sysUser",result.resultData.userName);
+                        window.sessionStorage.setItem("userId",result.resultData.userId);
+                        window.sessionStorage.setItem("tag", result.resultData.tag);
+                        window.location.href = "${pageContext.request.contextPath}/loginSuccess";
+                    }else{
+                        layer.alert("用户ID或密码错误！")
+                    }
+                },
+                error:function (result) {
+                    // layer.alert(result);
+                    console.log(result);
+                }
+            });
+            return false;
+        });
+    })
+</script>
+</body>
+</html>
