@@ -8,8 +8,10 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -40,7 +42,7 @@ public class GroupController {
 	 */
 	@RequestMapping(value = "/areaCount", method = RequestMethod.GET)
 	public Result getAreaCount(HttpServletRequest request){
-		Map<String, List> map = groupService.getAreaCount();
+		Map<String, Object> map = groupService.getAreaCount();
 		if(map!=null && map.size()!=0){
 			return new Result(200, null, null,  map);
 		}else{
@@ -49,12 +51,25 @@ public class GroupController {
 	}
 	
 	@RequestMapping(value = "/increasedCountTrend", method = RequestMethod.POST)
-	public Result getTimeTrend(@RequestBody Map<String, Object>map, HttpServletRequest request){
-		Timestamp lTime = Timestamp.valueOf(map.get("lTime").toString());
-		Timestamp rTime = Timestamp.valueOf(map.get("rTime").toString());
-		String city = map.get("city").toString();
-		Map<String, List>  mapResult = groupService.getIncreasedCountTrend(lTime, rTime, city);
-		if(map!=null && map.size()!=0){
+	public Result getTimeTrend(@RequestBody(required = false) Map<String, Object> map, HttpServletRequest request){
+
+		Timestamp lTime = null;
+		Timestamp rTime = null;
+		Integer cityId = null;
+		if(map != null) {
+			if(map.get("lTime") != null && !"".equals(map.get("lTime").toString().trim())) {
+				lTime = Timestamp.valueOf(map.get("lTime").toString());
+			}
+			if(map.get("rTime") != null && !"".equals(map.get("rTime").toString().trim())) {
+				rTime = Timestamp.valueOf(map.get("rTime").toString());
+			}
+			if(map.get("cityId") != null) {
+				cityId = Integer.valueOf(map.get("cityId").toString());
+			}
+		}
+
+		Map<String, Object>  mapResult = groupService.getIncreasedCountTrend(lTime, rTime, cityId);
+		if(mapResult != null && mapResult.size()!=0){
 			return new Result(200, null, null,  mapResult);
 		}else{
 			return new Result(202, null, "Program Failed!", null);
@@ -77,11 +92,81 @@ public class GroupController {
 	 */
 	@RequestMapping(value = "/categoryGroups", method = RequestMethod.POST)
 	public Result getCategoryGroups(HttpServletRequest request){
-		List<Map<String, List>> mapList = groupService.getCategoryGroups();
+		Map<String, Map<String, Object>> mapList = groupService.getCategoryGroups();
 		if(mapList!=null){
 			return new Result(200, null, null, mapList);
 		}else{
 			return new Result(202, null, "Program Failed!", null);
 		}
 	}
+
+	@RequestMapping(value = "/categoryCount", method = RequestMethod.POST)
+	public Result getCategoryCount(HttpServletRequest request){
+		Map<String, Object> map = groupService.getCategoryCount();
+		if(map!=null){
+			return new Result(200, null, null, map);
+		}else{
+			return new Result(202, null, "Program Failed!", null);
+		}
+	}
+	
+	/**
+	 *
+	 * @param map(groupName, categoryId, topicId, cityId, visibility)
+	 * @param session
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value = "/addGroup", method = RequestMethod.POST)
+	public Result addGroup(@RequestBody Map<String, Object> map, HttpSession session, HttpServletRequest request){
+		int userId = Integer.parseInt(session.getAttribute("userId").toString());
+		String groupName = map.get("groupName").toString();
+		Integer categoryId = Integer.parseInt(map.get("categoryId").toString());
+		Integer topicId = Integer.parseInt(map.get("topicId").toString());
+		Integer cityId = Integer.parseInt(map.get("cityId").toString());
+		String visibility = map.get("visibility").toString();
+		Timestamp created = new Timestamp(System.currentTimeMillis());
+		Integer groupId = groupService.addGroup(userId, groupName, categoryId, topicId, cityId, visibility, created);
+		if(groupId != null){
+			return new Result(200, null, null,  groupId.intValue());
+		}else{
+			return new Result(202, null, "Program Failed", null);
+		}
+	}
+	
+	@RequestMapping(value = "/cityGroupSize", method = RequestMethod.POST)
+	public Result getCityGroupSize(String cityName, HttpServletRequest request){
+		int[] buckets = {100, 200, 300, 400, 500, 600, 700, 800, 900, 1000, 100000};
+		Map<String, List> map = groupService.getCityGroupSize(cityName, buckets);
+		if(map!=null && map.size()!=0){
+			return new Result(200, null, null, map);
+		}else{
+			return new Result(202, null, "Program Failed", null);
+		}
+	}
+	
+	//draw map
+	@RequestMapping(value = "/cityCategoryGroupSize", method = RequestMethod.POST)
+	public Result getCityCategoryGroupSize(String city, HttpServletRequest request){
+		List<Double> center = new ArrayList<Double>();
+		if(city == "San Francisco"){
+			center.add(37.78);
+			center.add(-122.42);
+		}else if(city =="New York"){
+			center.add(40.785091);
+			center.add(-73.968285);
+		}else{
+			center.add(41.881832);
+			center.add(-87.623177);
+		}
+//		this map returns lists of lat, lon, size grouped by category
+		Map<String, List> map = groupService.getCityCategoryGroupSize(city);
+		map.put("center", center);
+		if(map!=null && map.size()!=0){
+			return new Result(200, null, null, map);
+		}else{
+			return new Result(202, null, "Program Failed", null);
+		}
+	}
+	
 }

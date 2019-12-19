@@ -15,6 +15,8 @@ public interface GroupMapper {
 
     List<Map<String, Object>> listGroupNumByCity();
 
+    List<Map<String, Object>> listGroupNumByCategory();
+
     List<Map<String, Object>> listGroupNumByDate(String period, int interval, String startDate, String endDate, Integer cityId);
 
 }

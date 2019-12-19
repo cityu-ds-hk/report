@@ -1,6 +1,8 @@
 
+
+
 //plotly.js 画图部分
-window.onload = function(){ 
+window.onload = function(){
 
   // group分城市饼图
   var group_pie_data = [{
@@ -15,7 +17,6 @@ window.onload = function(){
   };
 
   Plotly.newPlot('Group-PieChart',group_pie_data, layout);
-
 
   //group分category柱状图
   var group_bar_data = [
@@ -76,7 +77,32 @@ window.onload = function(){
   
   Plotly.newPlot('Group-ScatterChart', data, layout);
 
- }
+
+  var layout = {
+    height: 400,
+    width: 500
+  };
+  plot_pie_city('Group-PieChart', 'group/areaCount', layout)
+  plot_bar_category('Group-BarChart', 'group/categoryCount', layout)
+  var layout ={
+    title:'小组数量时间变化图'
+  }
+  plot_time_line('Time-LineChart', 'group/increasedCountTrend?', layout)
+
+  var layout = {
+    xaxis: {
+      range: [ 0.75, 5.25 ]
+    },
+    yaxis: {
+      range: [0, 8]
+    },
+    title:'不同城市各个category下小组数量统计'
+  };
+
+  plot_category_scatter('Group-ScatterChart', 'group/categoryGroups', layout);
+
+
+}
 
 
   

@@ -2,8 +2,10 @@ package edu.cityu.ds.report.serviceImpl;
 
 import edu.cityu.ds.report.mapper.GroupMapper;
 import edu.cityu.ds.report.service.GroupService;
+import edu.cityu.ds.report.utils.CommonUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Timestamp;
 import java.util.List;
@@ -20,47 +22,64 @@ public class GroupServiceImpl implements GroupService {
 	
 	@Override
 	public int getCount() {
-		return 0;
+		return groupMapper.getCount();
 	}
 	
 	@Override
-	public Map<String, List> getAreaCount() {
-		return null;
+	public Map<String, Object> getAreaCount() {
+
+		List<Map<String, Object>> list = groupMapper.listGroupNumByCity();
+
+		return CommonUtils.listMap2Map(list, "city_id", "num");
 	}
 	
 	@Override
-	public Map<String, List> getIncreasedCountTrend(Timestamp lTime, Timestamp rTime, String city) {
-		return null;
+	public Map<String, Object> getIncreasedCountTrend(Timestamp lTime, Timestamp rTime, Integer cityId) {
+		String lTimeStr = lTime == null ? null : CommonUtils.timestampFormat.format(lTime);
+		String rTimeStr = rTime == null ? null : CommonUtils.timestampFormat.format(lTime);
+
+		List<Map<String, Object>> list = groupMapper.listGroupNumByDate("%Y", 1,
+				lTimeStr, rTimeStr, cityId);
+		return CommonUtils.listMap2Map(list, "time", "num");
+	}
+
+	@Override
+	public Map<String, Object> getCategoryCount() {
+
+		List<Map<String, Object>> list = groupMapper.listGroupNumByCategory();
+
+		return CommonUtils.listMap2Map(list, "category_id", "num");
+	}
+
+	@Override
+	public Map<String, Map<String, Object>> getCategoryGroups() {
+		List<Map<String, Object>> list = groupMapper.listGroupNumByCategoryCity();
+
+		return CommonUtils.listMap2MapMap(list, "category_id", "city_id", "num");
 	}
 	
-	@Override
-	public List<Map<String, List>> getCategoryGroups() {
-		return null;
-	}
-
-	@Override
-	public List<Map<String, Object>> listGroupNumByCategoryCity() {
-		return groupMapper.listGroupNumByCategoryCity();
-	}
-
-	@Override
-	public List<Map<String, Object>> listGroupNumByCity() {
-		return groupMapper.listGroupNumByCity();
-	}
-
 	@Override
 	public List<Map<String, Object>> listGroupNumByDate(String period, int interval, String startDate, String endDate, Integer cityId) {
-		String period_format = "%Y";
-		if(period != null) {
-			if("YEAR".equals(period.toUpperCase())) {
-				// period_format = "%Y"
-			} else if("MONTH".equals(period.toUpperCase())) {
-				period_format = "%Y-%m";
-			} else if("DAY".equals(period.toUpperCase())) {
-				period_format = "%Y-%m-%d";
-			}
-		}
-
-		return groupMapper.listGroupNumByDate(period_format, interval, startDate, endDate, cityId);
+		return null;
 	}
+	
+	/**
+	 * topic and category are in different tables
+	 */
+	@Override
+	@Transactional(rollbackFor = Exception.class)
+	public Integer addGroup(int userId, String groupName, Integer categoryId, Integer topicId, Integer cityId, String visibility, Timestamp created) {
+		return null;
+	}
+	
+	@Override
+	public Map<String, List> getCityGroupSize(String cityName, int[] buckets) {
+		return null;
+	}
+	
+	@Override
+	public Map<String, List> getCityCategoryGroupSize(String cityName) {
+		return null;
+	}
+	
 }

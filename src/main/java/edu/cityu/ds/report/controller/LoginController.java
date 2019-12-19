@@ -8,11 +8,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.Map;
 
 @Controller
 @Tag(name = "Login Interfaces", description = "Rest API of Login function")
@@ -37,7 +39,7 @@ public class LoginController {
         if(user != null){
             session.setAttribute("userName", user.getUserName());
             session.setAttribute("userId", user.getUserId());
-            return "index";
+            return "admin";
         }else {
             request.setAttribute("message", "User name or password error");
             return "forward:login";
@@ -46,7 +48,7 @@ public class LoginController {
     
     @RequestMapping(value = "/doLogout", method = RequestMethod.POST)
     @Operation(description = "User Logout")
-    public String logout(HttpSession session, HttpServletRequest  request){
+    public String logout( HttpSession session, HttpServletRequest  request){
         session.invalidate();
         return "login";
     }

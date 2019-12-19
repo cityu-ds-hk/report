@@ -31,5 +31,5 @@ public class Event {
 	private Timestamp created;
 	
 	private Timestamp updated;
-	
+
 }
