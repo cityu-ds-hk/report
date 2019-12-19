@@ -1,9 +1,27 @@
+function basePath() {
+    //获取当前网址，如： http://localhost:8080/ems/Pages/Basic/Person.jsp
+    var curWwwPath = window.document.location.href;
+    //获取主机地址之后的目录，如： /ems/Pages/Basic/Person.jsp
+    var pathName = window.document.location.pathname;
+    var pos = curWwwPath.indexOf(pathName);
+    //获取主机地址，如： http://localhost:8080
+    var localhostPath = curWwwPath.substring(0, pos);
+    //获取带"/"的项目名，如：/ems
+    var projectName = pathName.substring(0, pathName.substr(1).indexOf('/') + 1);
+    //获取项目的basePath   http://localhost:8080/ems/
+    var basePath = localhostPath + projectName + "/";
+    return localhostPath;
+};
+
+var base_path = basePath() + "/";
+console.log(base_path)
+
 // 获取城市与类型的信息 cities={city_id:city_name} categories={category_id:category_name}
 var metaData;
 function meta_data() {
     $.ajax({
             async: false,
-            url: "common/metaData",
+            url: base_path + "common/metaData",
             dataType: "json",
             type: "GET",
             timeout: 2000,
@@ -18,6 +36,12 @@ function meta_data() {
 }
 
 meta_data()
+
+function sortMap(map) {
+    var arrayObj=Array.from(map);
+    arrayObj.sort(function(a,b){return a[0].localeCompare(b[0])});
+    return result = new Map(arrayObj.map(i => [i[0], i[1]]));
+}
 
 function plot_pie_city(element_id, url, layout) {
     if(layout === undefined) {

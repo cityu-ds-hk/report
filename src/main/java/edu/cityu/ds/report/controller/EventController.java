@@ -34,7 +34,7 @@ public class EventController {
 	
 	@RequestMapping(value = "/areaCount", method = RequestMethod.GET)
 	public Result getAreaCount(HttpServletRequest request){
-		Map<String, List> map = eventService.getAreaCount();
+		Map<String, Object> map = eventService.getAreaCount();
 		if(map!=null && map.size()!=0){
 			return new Result(200, null, null,  map);
 		}else{
@@ -43,12 +43,25 @@ public class EventController {
 	}
 	
 	@RequestMapping(value = "/increasedCountTrend", method = RequestMethod.POST)
-	public Result getTimeTrend(@RequestBody Map<String, Object>map, HttpServletRequest request){
-		Timestamp lTime = Timestamp.valueOf(map.get("lTime").toString());
-		Timestamp rTime = Timestamp.valueOf(map.get("rTime").toString());
-		String city = map.get("city").toString();
-		Map<String, List>  mapResult = eventService.getIncreasedCountTrend(lTime, rTime, city);
-		if(map!=null && map.size()!=0){
+	public Result getTimeTrend(@RequestBody(required = false) Map<String, Object>map, HttpServletRequest request){
+		Timestamp lTime = null;
+		Timestamp rTime = null;
+		Integer cityId = null;
+		if(map != null) {
+			if(map.get("lTime") != null && !"".equals(map.get("lTime").toString().trim())) {
+				lTime = Timestamp.valueOf(map.get("lTime").toString());
+			}
+			if(map.get("rTime") != null && !"".equals(map.get("rTime").toString().trim())) {
+				rTime = Timestamp.valueOf(map.get("rTime").toString());
+			}
+			if(map.get("cityId") != null) {
+				cityId = Integer.valueOf(map.get("cityId").toString());
+			}
+		}
+
+		Map<String, Object>  mapResult = eventService.getIncreasedCountTrend(lTime, rTime, cityId);
+
+		if(mapResult!=null && mapResult.size()!=0){
 			return new Result(200, null, null,  mapResult);
 		}else{
 			return new Result(202, null, "Program Failed!", null);
@@ -57,9 +70,19 @@ public class EventController {
 	
 	@RequestMapping(value = "/categoryGroups", method = RequestMethod.POST)
 	public Result getCategoryGroups(HttpServletRequest request){
-		List<Map<String, List>> mapList = eventService.getCategoryGroups();
+		Map<String, Map<String, Object>> mapList = eventService.getCategoryGroups();
 		if(mapList!=null){
 			return new Result(200, null, null, mapList);
+		}else{
+			return new Result(202, null, "Program Failed!", null);
+		}
+	}
+
+	@RequestMapping(value = "/categoryCount", method = RequestMethod.POST)
+	public Result getCategoryCount(HttpServletRequest request){
+		Map<String, Object> map = eventService.getCategoryCount();
+		if(map!=null){
+			return new Result(200, null, null, map);
 		}else{
 			return new Result(202, null, "Program Failed!", null);
 		}

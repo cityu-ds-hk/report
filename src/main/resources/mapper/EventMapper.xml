@@ -10,4 +10,65 @@
         SELECT * from events where event_id=#{eventId}
     </select>
 
+    <select id="listEventNumByCategoryCity" parameterType="String" resultType="java.util.HashMap">
+        SELECT category_id, city_id, count(*) as num
+        FROM events e
+--         INNER JOIN venues v on v.venue_id = e.venue_id
+        INNER JOIN groups g on g.group_id = e.group_id
+        GROUP BY category_id, city_id
+    </select>
+
+    <select id="listEventNumByCategory" parameterType="String" resultType="java.util.HashMap">
+        SELECT category_id, count(*) as num
+        FROM events e
+--         INNER JOIN venues v on v.venue_id = e.venue_id
+        INNER JOIN groups g on g.group_id = e.group_id
+        GROUP BY category_id
+    </select>
+
+    <select id="listEventNumByCity" parameterType="String" resultType="java.util.HashMap">
+        SELECT city_id, count(*) as num
+        FROM events e
+--         INNER JOIN venues v on v.venue_id = e.venue_id
+        INNER JOIN groups g on g.group_id = e.group_id
+        GROUP BY city_id
+    </select>
+
+    <select id="listEventNumByDate" resultType="java.util.HashMap">
+        SELECT DATE_FORMAT(event_time, #{period}) as time, count(*) as num
+        FROM events
+        <where>
+            <if test="startDate != null and endDate != null">
+                event_time &gt; #{startDate} and event_time &lt; #{endDate}
+            </if>
+            <if test="startDate != null and endDate == null">
+                event_time &gt; #{startDate}
+            </if>
+            <if test="startDate == null and endDate != null">
+                event_time &lt; #{endDate}
+            </if>
+        </where>
+        GROUP BY time
+    </select>
+
+    <select id="listEventNumByDateWithCity" resultType="java.util.HashMap">
+        SELECT DATE_FORMAT(event_time, #{period}) as time, count(*) as num
+        FROM events e
+--         INNER JOIN venues v on v.venue_id = e.venue_id
+        INNER JOIN groups g on g.group_id = e.group_id
+        <where>
+            city_id = #{cityId}
+            <if test="startDate != null and endDate != null">
+                and event_time &gt; #{startDate} and event_time &lt; #{endDate}
+            </if>
+            <if test="startDate != null and endDate == null">
+                and event_time &gt; #{startDate}
+            </if>
+            <if test="startDate == null and endDate != null">
+                and event_time &lt; #{endDate}
+            </if>
+        </where>
+        GROUP BY time
+    </select>
+
 </mapper>

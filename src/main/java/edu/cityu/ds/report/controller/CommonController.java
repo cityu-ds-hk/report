@@ -26,4 +26,10 @@ public class CommonController {
         return new Result(200, null, null, commonService.getMetaData());
     }
 
+    @RequestMapping(value = "/allCount", method = RequestMethod.GET)
+    @ResponseBody
+    public Result getAllCount(){
+        return new Result(200, null, null, commonService.getAllCount());
+    }
+
 }

@@ -13,9 +13,9 @@ public interface UserService {
     
     int getCount();
 	
-	Map<String, List> getAreaCount();
+	Map<String, Object> getAreaCount();
 	
-	Map<String, List> getIncreasedCountTrend(Timestamp lTime, Timestamp rTime, String city);
+	Map<String, Object> getIncreasedCountTrend(Timestamp lTime, Timestamp rTime, Integer cityId);
 	
 	List<Map<String, List>> getmTopicMembers();
 	

@@ -11,10 +11,13 @@ import java.util.Map;
 public interface EventService {
 	
 	int getCount();
-	
-	Map<String, List> getAreaCount();
-	
-	Map<String, List> getIncreasedCountTrend(Timestamp lTime, Timestamp rTime, String city);
-	
-	List<Map<String, List>> getCategoryGroups();
+
+	Map<String, Object> getAreaCount();
+
+	Map<String, Map<String, Object>> getCategoryGroups();
+
+	Map<String, Object> getIncreasedCountTrend(Timestamp lTime, Timestamp rTime, Integer cityId);
+
+	Map<String, Object> getCategoryCount();
+
 }

@@ -26,9 +26,9 @@ public class TopicController {
 	private TopicService topicService;
 	
 	@RequestMapping(value = "/topTopics", method = RequestMethod.GET)
-	public Result getTopGroups(){
+	public Result getTopTopics(){
 		int limit = 20;
-		Map<String, List> map = topicService.getTopTopics(limit);
+		Map<String, Object> map = topicService.getTopTopics(limit);
 		if(map!=null && map.size()!=0){
 			return new Result(200, null, null, map);
 		}else{

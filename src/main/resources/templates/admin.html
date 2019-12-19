@@ -3,142 +3,143 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <title>Meetup数据分析网站</title>
-  <link rel="stylesheet" href="../static/css/admin.css">
-  <link rel="stylesheet" href="../static/layui/css/layui.css">
+  <title>开始使用layui</title>
 
-  <script src="../static/js/jquery.min.js"></script>
-  <script src="../static/layui/layui.js"></script>
-  <script src="../static/js/plotly-latest.min.js"></script>
+  <link rel="stylesheet" href="/static/css/admin.css">
+  <link rel="stylesheet" href="/static/layui/css/layui.css">
+
+  <script src="/static/layui/layui.js"></script>
+  <script src="/static/js/plotly-latest.min.js"></script>
   <!-- <script src='https://cdn.plot.ly/plotly-latest.min.js'></script> -->
-  <script src="../static/js/common.js"></script>
-  <script src="../static/js/admin.js"></script>
+    <script src="/static/js/jquery.min.js"></script>
+    <script src="/static/js/common.js"></script>
+  <script src="/static/js/admin.js"></script>
   
 </head>
 <body>
- 
+
 
 <!-- 顶部栏 -->
 <div class="top-tab layui-row">
     <!-- logo -->
     <div class="layui-col-md2 layui-col-xs4">
-            <img src="../img/logo.svg" style="display: block;width:50%;height:auto;margin-top:5%;margin-left: 8%;">
-      </div>
+        <img src="/static/images/logo.svg" style="display: block;width:50%;height:auto;margin-top:5%;margin-left: 8%;">
+    </div>
     <div class="layui-col-md10"></div>
 </div>
 <div class="layui-clear"></div>
 
 <!-- 轮播图 -->
 <div class="layui-carousel" id="test1">
-  <div carousel-item  class="_carousel">
-    <div><img src="../img/group_network.png"></div>
-    <div><img src="../img/category_network.png" ></div>
-    <div><img src="../img/wordcloud.png" ></div>
-  </div>
+    <div carousel-item  class="_carousel">
+        <div><img src="/static/images/group_network.png"></div>
+        <div><img src="/static/images/category_network.png" ></div>
+        <div><img src="/static/images/wordcloud.png" ></div>
+    </div>
 </div>
 
 <!-- 中间布局 -->
 <div class="layui-container" style="margin-top: 30px">
 
-        <!-- 固定展示模块（小组数量/成员数量/活动数量） -->
-        <div class="layui-row fix-tab" >
-            <!-- 小组数量 -->
-            <div class="layui-col-md3" style="margin-left: 5%;">
-                <div class="layui-col-md3 text-format">
-                    小组数量
-                  </div>
-                  <div class="layui-col-md9">
-                    
-                  </div>
-                  <div class="layui-col-md12 num-format" id="Num-group">
-                    12223
-                  </div>
+    <!-- 固定展示模块（小组数量/成员数量/活动数量） -->
+    <div class="layui-row fix-tab" >
+        <!-- 小组数量 -->
+        <div class="layui-col-md3" style="margin-left: 5%;">
+            <div class="layui-col-md3 text-format">
+                小组数量
             </div>
-            <!-- 成员数量 -->
-            <div class="layui-col-md1" style="background-color: white;"> &nbsp;</div>
-            <div class="layui-col-md3" >
-                <div class="layui-col-md3 text-format">
-                    成员数量
-                  </div>
-                  <div class="layui-col-md9">
-                    
-                  </div>
-                  <div class="layui-col-md12 num-format" id="Num-member">
-                    12223
-                  </div>
+            <div class="layui-col-md9">
+
             </div>
-            
-            <div class="layui-col-md1" style="background-color: white;"> &nbsp;</div>
-            <!-- 活动数量 -->
-            <div class="layui-col-md3">
-                <div class="layui-col-md3 text-format">
-                    活动数量
-                  </div>
-                  <div class="layui-col-md9">
-                    
-                  </div>
-                  <div class="layui-col-md12 num-format" id="Num-event">
-                    12223
-                  </div>
+            <div class="layui-col-md12 num-format" id="Num-group">
+                12223
             </div>
-            
+        </div>
+        <!-- 成员数量 -->
+        <div class="layui-col-md1" style="background-color: white;"> &nbsp;</div>
+        <div class="layui-col-md3" >
+            <div class="layui-col-md3 text-format">
+                成员数量
+            </div>
+            <div class="layui-col-md9">
+
+            </div>
+            <div class="layui-col-md12 num-format" id="Num-member">
+                12223
+            </div>
         </div>
 
-        <!-- 不同模块切换 （小组数据/成员数据/活动数据） -->
+        <div class="layui-col-md1" style="background-color: white;"> &nbsp;</div>
+        <!-- 活动数量 -->
+        <div class="layui-col-md3">
+            <div class="layui-col-md3 text-format">
+                活动数量
+            </div>
+            <div class="layui-col-md9">
 
-         <div class="layui-tab" style="background-color: white;">
-            <ul class="layui-tab-title">
-              <li class="layui-this">小组数据</li>
-              <li><a href="../static/member.html" target="member_target">用户数据</a></li>
-              <li><a href="../static/event.html" target="event_target">活动数据</a></li>
-            </ul>
-          <div class="layui-tab-content">
-              
-                <!-- 小组数据展示 -->
-              <div class="layui-tab-item layui-show">
-              <div class="layui-card" style="background-color: white">
-                <div class="layui-card-header">小组数量城市分布图/小组数量categroy分布图</div>
-                <div class="layui-card-body">
-                  <!-- 第一部分 （饼图/柱状图） -->
-                <div class="layui-row">
-                    <!-- 饼图 -->
-                    <div class="layui-col-md6" id="Group-PieChart"></div>
+            </div>
+            <div class="layui-col-md12 num-format" id="Num-event">
+                12223
+            </div>
+        </div>
 
-                    <!-- 柱状图 -->
-                    <div class="layui-col-md6" id="Group-BarChart" ></div>
+    </div>
 
+    <!-- 不同模块切换 （小组数据/成员数据/活动数据） -->
+
+    <div class="layui-tab" style="background-color: white;">
+        <ul class="layui-tab-title">
+            <li class="layui-this">小组数据</li>
+            <li><a href="/static/member.html" target="member_target">用户数据</a></li>
+            <li><a href="/static/event.html" target="event_target">活动数据</a></li>
+        </ul>
+        <div class="layui-tab-content">
+
+            <!-- 小组数据展示 -->
+            <div class="layui-tab-item layui-show">
+                <div class="layui-card" style="background-color: white">
+                    <div class="layui-card-header">小组数量城市分布图/小组数量categroy分布图</div>
+                    <div class="layui-card-body">
+                        <!-- 第一部分 （饼图/柱状图） -->
+                        <div class="layui-row">
+                            <!-- 饼图 -->
+                            <div class="layui-col-md6" id="Group-PieChart"></div>
+
+                            <!-- 柱状图 -->
+                            <div class="layui-col-md6" id="Group-BarChart" ></div>
+
+                        </div>
+                    </div>
                 </div>
-                </div>
-              </div>
-             
-           
 
-            
+
+
+
                 <!-- 第二部分 -->
                 <div class="layui-card" style="background-color: white">
                     <div class="layui-card-header">小组数量时间变化图</div>
                     <div class="layui-card-body">
                         <div class = "layui-row" >
                             <!-- 时间选择 -->
-                                <!-- 开始时间 -->
-                                <div class="layui-col-md1" style="margin-left: 30px;">
-                                    <div class="layui-row">
-                                        <div class="layui-col-md7"><input type="text" class="layui-input" id="start-time"></div>
-                                    </div>
+                            <!-- 开始时间 -->
+                            <div class="layui-col-md1" style="margin-left: 30px;">
+                                <div class="layui-row">
+                                    <div class="layui-col-md7"><input type="text" class="layui-input" id="start-time"></div>
                                 </div>
+                            </div>
 
-                                <div class="layui-col-md1" style="text-align: center;">  </div>
+                            <div class="layui-col-md1" style="text-align: center;">  </div>
 
-                                <!-- 结束时间 -->
-                                <div class="layui-col-md1">
-                                    <input type="text" class="layui-input" id="end-time">
-                                </div>
-                                <div class="layui-col-md8"></div>
-                          </div>
-                          <div class="layui-row">
+                            <!-- 结束时间 -->
+                            <div class="layui-col-md1">
+                                <input type="text" class="layui-input" id="end-time">
+                            </div>
+                            <div class="layui-col-md8"></div>
+                        </div>
+                        <div class="layui-row">
                             <!-- 小组数量时间变化图 -->
                             <div class="layui-col-md12" id="Time-LineChart"></div>
-                          </div>
+                        </div>
                     </div>
                 </div>
 
@@ -146,11 +147,11 @@
                     <div class="layui-card" style="background-color: white">
                         <div class="layui-card-header">不同城市的小组数量统计图</div>
                         <div class="layui-card-body">
-                        <!-- 第三部分 -->
-                        <div class = "layui-row" > 
-                            <!-- 分地区的小组数量统计图（分category） -->
-                            <div class="layui-col-md12" id="Group-ScatterChart"></div>
-                        </div>
+                            <!-- 第三部分 -->
+                            <div class = "layui-row" >
+                                <!-- 分地区的小组数量统计图（分category） -->
+                                <div class="layui-col-md12" id="Group-ScatterChart"></div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -158,86 +159,86 @@
                 <!-- 第四部分 -->
                 <!-- groupsize 柱状分布图 -->
                 <div class="layui-card" style="background-color: white;border-radius: 5px;">
-                  <div class="layui-card-header">小组数量分布图</div>
-                  <div class="layui-card-body">
-                      <!-- 城市选择下拉框 -->
-                      <div class="layui-row">
-                          <div class="layui-col-md4">
-                              <form class="layui-form" action="" name='city1'>
-                                  <div class="layui-form-item">
-                                      <label class="layui-form-label">城市</label>
-                                      <div class="layui-input-block">
-                                      <select name="interest">
-                                          <option value=""></option>
-                                          <option value="0">New York</option>
-                                          <option value="1" selected="">Chicago</option>
-                                          <option value="2">San Francisco</option>
-                                      </select>
-                                      </div>
-                                  </div>
-                              </form>
-                          </div>
-                      </div>
-                      <!-- 柱状图 -->
-                      <div class="layui-row">
-                          <div class="layui-col-md3">&nbsp;</div>
-                          <div class="layui-col-md6" id="GroupSize-BarChart"></div>
-                          <div class="layui-col-md3">&nbsp;</div>
-                      </div>
-                  </div>
-              </div>
-              
-              <!-- groupsize 分布地图 -->
-                <div class="layui-card" style="background-color: white;border-radius: 5px;margin-top: 10px;">
-                  <div class="layui-card-header">小组数量分布地图</div>
-                  <div class="layui-card-body">
-                      <!-- 城市选择下拉框 -->
-                      <div class="layui-row">
-                          <div class="layui-col-md4">
-                              <form class="layui-form" action="" name="city2">
-                                  <div class="layui-form-item">
-                                      <label class="layui-form-label">城市</label>
-                                      <div class="layui-input-block">
-                                      <select name="interest">
-                                          <option value=""></option>
-                                          <option value="0">New York</option>
-                                          <option value="1" selected="">Chicago</option>
-                                          <option value="2">San Francisco</option>
-                                      </select>
-                                      </div>
-                                  </div>
-                              </form>
-                          </div>
-                      </div>
-                      <!-- 地图 -->
-                      <div class="layui-row">
-                          <div class="layui-col-md2">&nbsp;</div>
-                          <div class="layui-col-md8" id="GroupSize-Map"></div>
-                          <div class="layui-col-md2">&nbsp;</div>
-                      </div>
-                  </div>
-              </div>
-
-
-              <!-- 最受欢迎的Topics -->
-              <div class="layui-card" style="background-color: white;border-radius: 5px;">
-                <div class="layui-card-header">Top20 Topics</div>
-                <div class="layui-card-body">
-                    <!-- 柱状图 -->
-                    <div class="layui-row">
-                        <div class="layui-col-md3">&nbsp;</div>
-                        <div class="layui-col-md6" id="TopTopics-Chart"></div>
-                        <div class="layui-col-md3">&nbsp;</div>
+                    <div class="layui-card-header">小组数量分布图</div>
+                    <div class="layui-card-body">
+                        <!-- 城市选择下拉框 -->
+                        <div class="layui-row">
+                            <div class="layui-col-md4">
+                                <form class="layui-form" action="" name='city1'>
+                                    <div class="layui-form-item">
+                                        <label class="layui-form-label">城市</label>
+                                        <div class="layui-input-block">
+                                            <select name="interest">
+                                                <option value=""></option>
+                                                <option value="0">New York</option>
+                                                <option value="1" selected="">Chicago</option>
+                                                <option value="2">San Francisco</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        <!-- 柱状图 -->
+                        <div class="layui-row">
+                            <div class="layui-col-md3">&nbsp;</div>
+                            <div class="layui-col-md6" id="GroupSize-BarChart"></div>
+                            <div class="layui-col-md3">&nbsp;</div>
+                        </div>
                     </div>
                 </div>
-              </div>
-         </div>
-              <div style="height: 800px;" class="layui-tab-item  iframe-container"><iframe name="member_target" scrolling="no"  frameborder="0" class="iframe" ></iframe></div>
-              <div style="height: 800px;" class="layui-tab-item iframe-container"><iframe name="event_target" scrolling="no"  frameborder="0" class="iframe"></iframe></div>
+
+                <!-- groupsize 分布地图 -->
+                <div class="layui-card" style="background-color: white;border-radius: 5px;margin-top: 10px;">
+                    <div class="layui-card-header">小组数量分布地图</div>
+                    <div class="layui-card-body">
+                        <!-- 城市选择下拉框 -->
+                        <div class="layui-row">
+                            <div class="layui-col-md4">
+                                <form class="layui-form" action="" name="city2">
+                                    <div class="layui-form-item">
+                                        <label class="layui-form-label">城市</label>
+                                        <div class="layui-input-block">
+                                            <select name="interest">
+                                                <option value=""></option>
+                                                <option value="0">New York</option>
+                                                <option value="1" selected="">Chicago</option>
+                                                <option value="2">San Francisco</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        <!-- 地图 -->
+                        <div class="layui-row">
+                            <div class="layui-col-md2">&nbsp;</div>
+                            <div class="layui-col-md8" id="GroupSize-Map"></div>
+                            <div class="layui-col-md2">&nbsp;</div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- 最受欢迎的Topics -->
+                <div class="layui-card" style="background-color: white;border-radius: 5px;">
+                    <div class="layui-card-header">Top20 Topics</div>
+                    <div class="layui-card-body">
+                        <!-- 柱状图 -->
+                        <div class="layui-row">
+                            <div class="layui-col-md3">&nbsp;</div>
+                            <div class="layui-col-md6" id="TopTopics-Chart"></div>
+                            <div class="layui-col-md3">&nbsp;</div>
+                        </div>
+                    </div>
+                </div>
             </div>
-              
+            <div style="height: 800px;" class="layui-tab-item  iframe-container"><iframe name="member_target" scrolling="no"  frameborder="0" class="iframe" ></iframe></div>
+            <div style="height: 800px;" class="layui-tab-item iframe-container"><iframe name="event_target" scrolling="no"  frameborder="0" class="iframe"></iframe></div>
         </div>
+
     </div>
+</div>
 </div>
 
 

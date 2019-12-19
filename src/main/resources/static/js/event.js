@@ -1,5 +1,5 @@
 //plotly.js 画图部分
-window.onload = function(){ 
+onload_frame = function(){
 
     // Event分城市饼图
     var group_pie_data = [{
@@ -32,9 +32,8 @@ window.onload = function(){
         y: [10, 15, 13, 17],
         type: 'scatter'
       };
-     var layout = {
-       width:1000,
-       height:400
+     var layout ={
+      title:'小组数量时间变化图'
      }
      var data = [number_groups]
     Plotly.newPlot('Event-TimeLineChart', data,layout);
@@ -70,10 +69,23 @@ window.onload = function(){
       yaxis: {
         range: [0, 8]
       },
-     
+      title:'不同城市各个category下活动数量统计'
     };
     
     Plotly.newPlot('Event-ScatterChart', data, layout);
 
-  
-   }
+    plot_pie_city('Event-PieChart', base_path + 'event/areaCount')
+    var layout ={
+        title:'小组数量时间变化图'
+    }
+    plot_time_line('Event-TimeLineChart', base_path + 'event/increasedCountTrend?', layout)
+
+    var layout = {
+        title:'不同城市各个category下小组数量统计'
+    };
+
+    plot_category_scatter('Event-ScatterChart', base_path + 'event/categoryGroups', layout);
+
+}
+
+onload_frame()

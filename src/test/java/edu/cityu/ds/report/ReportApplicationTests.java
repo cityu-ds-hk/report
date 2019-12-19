@@ -1,6 +1,7 @@
 package edu.cityu.ds.report;
 
 import edu.cityu.ds.report.entity.User;
+import edu.cityu.ds.report.mapper.EventMapper;
 import edu.cityu.ds.report.service.CommonService;
 import edu.cityu.ds.report.service.GroupService;
 import edu.cityu.ds.report.service.UserService;
@@ -23,6 +24,8 @@ class ReportApplicationTests {
     GroupService groupService;
     @Autowired
     CommonService commonService;
+    @Autowired
+    EventMapper eventMapper;
 
     @Test
     void contextLoads() {
@@ -32,6 +35,11 @@ class ReportApplicationTests {
 
     @Test
     void test() {
+
+        logger.info("Date: {}", eventMapper.listEventNumByCategoryCity());
+        logger.info("Date: {}", eventMapper.listEventNumByCity());
+        logger.info("Date: {}", eventMapper.listEventNumByDate("%Y-%m", 1,null, null));
+        logger.info("Date: {}", eventMapper.listEventNumByDateWithCity("%Y-%m", 1, null, null, 10001));
 
         Map<String, Object> map = commonService.getMetaData();
         logger.info("Map: {}", map);

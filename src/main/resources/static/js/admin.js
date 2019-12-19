@@ -1,6 +1,21 @@
-
 //plotly.js 画图部分
 window.onload = function(){
+
+  $.ajax({
+        url: base_path + "common/allCount",
+        dataType: "json",
+        type: "GET",
+        timeout: 2000,
+        success: function (data) {
+          if(data.status == 200){
+            $('#Num-group').html(data.data['group'])
+            $('#Num-member').html(data.data['member'])
+            $('#Num-event').html(data.data['event'])
+          }
+        },
+        error: function (msg) {}
+      }
+  )
 
   // group分城市饼图
   var group_pie_data = [{
@@ -34,8 +49,7 @@ window.onload = function(){
       type: 'scatter'
     };
    var layout ={
-    width:1000,
-   height:400
+    title:'小组数量时间变化图'
    }
    var data = [number_groups]
   Plotly.newPlot('Time-LineChart', data,layout);
@@ -71,10 +85,26 @@ window.onload = function(){
     yaxis: {
       range: [0, 8]
     },
+    title:'不同城市各个category下小组数量统计'
   };
   
   Plotly.newPlot('Group-ScatterChart', data, layout);
 
+  //GroupSize Barchart
+  var group_bar_data = [
+    {
+      x: ['giraffes', 'orangutans', 'monkeys'],
+      y: [20, 14, 23],
+      type: 'bar'
+    }
+  ];
+
+  var layout1 = {
+    height: 400,
+    width: 500
+  };
+
+  Plotly.newPlot('GroupSize-BarChart', group_bar_data,layout1);
 
   var layout = {
     height: 400,
@@ -88,12 +118,6 @@ window.onload = function(){
   plot_time_line('Time-LineChart', 'group/increasedCountTrend?', layout)
 
   var layout = {
-    xaxis: {
-      range: [ 0.75, 5.25 ]
-    },
-    yaxis: {
-      range: [0, 8]
-    },
     title:'不同城市各个category下小组数量统计'
   };
 
@@ -116,7 +140,7 @@ window.onload = function(){
 
   Plotly.newPlot('GroupSize-BarChart', group_bar_data,layout1);
 
-  
+
   //GroupSize地图
   var data = [{
     type:'scattermapbox',
@@ -128,7 +152,7 @@ window.onload = function(){
     },
     text:['Montreal']
   }]
-  
+
   var layout = {
     autosize: true,
     hovermode:'closest',
@@ -162,16 +186,16 @@ window.onload = function(){
       size: [40, 60, 80, 100]
     }
   };
-  
+
   var data = [trace1];
-  
+
   var layout = {
     title: 'Marker Size',
     showlegend: false,
     height: 600,
     width: 600
   };
-  
+
   Plotly.newPlot('TopTopics-Chart', data, layout);
 
 }
@@ -180,11 +204,11 @@ window.onload = function(){
   
 
 //layui.js
-
-layui.use(['element','laydate','layer','carousel','form'], function(){
-
+//不同模块切换
+layui.use(['element','laydate','layer','carousel'], function(){
   var element = layui.element;
   var laydate = layui.laydate;
+  var $ = layui.$;
   var layer = layui.layer;
   var carousel = layui.carousel;
   var form = layui.form;
@@ -197,7 +221,12 @@ layui.use(['element','laydate','layer','carousel','form'], function(){
     ,height: '490px'
     //,anim: 'updown' //切换动画方式
     });
-    
+
+
+    // 表单
+    var form = layui.form;
+
+  
   //执行一个laydate实例
   laydate.render({
     elem: '#start-time' //指定元素
@@ -206,8 +235,6 @@ layui.use(['element','laydate','layer','carousel','form'], function(){
   laydate.render({
     elem: '#end-time' //指定元素
   });
-
-
 });
 
 

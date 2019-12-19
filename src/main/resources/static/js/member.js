@@ -1,5 +1,5 @@
 //plotly.js 画图部分
-window.onload = function(){ 
+onload_frame = function(){
 
     // member分城市饼图
     var group_pie_data = [{
@@ -22,11 +22,18 @@ window.onload = function(){
         type: 'scatter'
       };
      var layout ={
-      width:1000,
-      height:400
+      title:'小组数量时间变化图'
      }
      var data = [number_groups]
     Plotly.newPlot('Member-TimeLineChart', data,layout);
-  
-  
-   }
+
+    plot_pie_city('Member-PieChart', base_path + 'admin/areaCount')
+    var layout ={
+        title:'小组数量时间变化图'
+    }
+    plot_time_line('Member-TimeLineChart', base_path + 'admin/increasedCountTrend?', layout)
+
+
+}
+
+onload_frame()

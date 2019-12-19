@@ -2,10 +2,9 @@ package edu.cityu.ds.report.serviceImpl;
 
 import edu.cityu.ds.report.entity.Category;
 import edu.cityu.ds.report.entity.City;
+import edu.cityu.ds.report.entity.Group;
 import edu.cityu.ds.report.entity.Topic;
-import edu.cityu.ds.report.mapper.CategoryMapper;
-import edu.cityu.ds.report.mapper.CityMapper;
-import edu.cityu.ds.report.mapper.TopicMapper;
+import edu.cityu.ds.report.mapper.*;
 import edu.cityu.ds.report.service.CommonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,6 +22,12 @@ public class CommonServiceImpl implements CommonService {
     private CategoryMapper categoryMapper;
     @Autowired
     private TopicMapper topicMapper;
+    @Autowired
+    private GroupMapper groupMapper;
+    @Autowired
+    private EventMapper eventMapper;
+    @Autowired
+    private MemberMapper memberMapper;
 
     @Override
     public Map<String, Object> getMetaData() {
@@ -48,6 +53,15 @@ public class CommonServiceImpl implements CommonService {
         resultMap.put("cities", cityMap);
         resultMap.put("categories", categoryMap);
         resultMap.put("topics", topicMap);
+        return resultMap;
+    }
+
+    @Override
+    public Map<String, Integer> getAllCount() {
+        Map<String, Integer> resultMap = new HashMap<>();
+        resultMap.put("member", memberMapper.getCount());
+        resultMap.put("group", groupMapper.getCount());
+        resultMap.put("event", eventMapper.getCount());
         return resultMap;
     }
 }

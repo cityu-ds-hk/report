@@ -7,8 +7,6 @@ public interface MemberMapper {
 
     int getCount();
 
-//    List<Map<String, Object>> listMemberNumByCategoryCity();
-
     List<Map<String, Object>> listMemberNumByCity();
 
     List<Map<String, Object>> listMemberNumByDate(String period, int interval, String startDate, String endDate, Integer cityId);

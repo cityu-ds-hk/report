@@ -8,5 +8,5 @@ import java.util.Map;
  */
 public interface TopicService {
 	
-	Map<String, List> getTopTopics(int limit);
+	Map<String, Object> getTopTopics(Integer limit);
 }
