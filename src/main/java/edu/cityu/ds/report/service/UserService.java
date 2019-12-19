@@ -18,4 +18,5 @@ public interface UserService {
 	Map<String, List> getIncreasedCountTrend(Timestamp lTime, Timestamp rTime, String city);
 	
 	List<Map<String, List>> getmTopicMembers();
+	
 }

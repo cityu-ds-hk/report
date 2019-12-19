@@ -8,8 +8,10 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -107,4 +109,64 @@ public class GroupController {
 			return new Result(202, null, "Program Failed!", null);
 		}
 	}
+	
+	/**
+	 *
+	 * @param map(groupName, categoryId, topicId, cityId, visibility)
+	 * @param session
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value = "/addGroup", method = RequestMethod.POST)
+	public Result addGroup(@RequestBody Map<String, Object> map, HttpSession session, HttpServletRequest request){
+		int userId = Integer.parseInt(session.getAttribute("userId").toString());
+		String groupName = map.get("groupName").toString();
+		Integer categoryId = Integer.parseInt(map.get("categoryId").toString());
+		Integer topicId = Integer.parseInt(map.get("topicId").toString());
+		Integer cityId = Integer.parseInt(map.get("cityId").toString());
+		String visibility = map.get("visibility").toString();
+		Timestamp created = new Timestamp(System.currentTimeMillis());
+		Integer groupId = groupService.addGroup(userId, groupName, categoryId, topicId, cityId, visibility, created);
+		if(groupId != null){
+			return new Result(200, null, null,  groupId.intValue());
+		}else{
+			return new Result(202, null, "Program Failed", null);
+		}
+	}
+	
+	@RequestMapping(value = "/cityGroupSize", method = RequestMethod.POST)
+	public Result getCityGroupSize(String cityName, HttpServletRequest request){
+		int[] buckets = {100, 200, 300, 400, 500, 600, 700, 800, 900, 1000, 100000};
+		Map<String, List> map = groupService.getCityGroupSize(cityName, buckets);
+		if(map!=null && map.size()!=0){
+			return new Result(200, null, null, map);
+		}else{
+			return new Result(202, null, "Program Failed", null);
+		}
+	}
+	
+	//draw map
+	@RequestMapping(value = "/cityCategoryGroupSize", method = RequestMethod.POST)
+	public Result getCityCategoryGroupSize(String city, HttpServletRequest request){
+		List<Double> center = new ArrayList<Double>();
+		if(city == "San Francisco"){
+			center.add(37.78);
+			center.add(-122.42);
+		}else if(city =="New York"){
+			center.add(40.785091);
+			center.add(-73.968285);
+		}else{
+			center.add(41.881832);
+			center.add(-87.623177);
+		}
+//		this map returns lists of lat, lon, size grouped by category
+		Map<String, List> map = groupService.getCityCategoryGroupSize(city);
+		map.put("center", center);
+		if(map!=null && map.size()!=0){
+			return new Result(200, null, null, map);
+		}else{
+			return new Result(202, null, "Program Failed", null);
+		}
+	}
+	
 }

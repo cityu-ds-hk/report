@@ -5,6 +5,7 @@ import edu.cityu.ds.report.service.GroupService;
 import edu.cityu.ds.report.utils.CommonUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Timestamp;
 import java.util.List;
@@ -56,4 +57,29 @@ public class GroupServiceImpl implements GroupService {
 
 		return CommonUtils.listMap2MapMap(list, "category_id", "city_id", "num");
 	}
+	
+	@Override
+	public List<Map<String, Object>> listGroupNumByDate(String period, int interval, String startDate, String endDate, Integer cityId) {
+		return null;
+	}
+	
+	/**
+	 * topic and category are in different tables
+	 */
+	@Override
+	@Transactional(rollbackFor = Exception.class)
+	public Integer addGroup(int userId, String groupName, Integer categoryId, Integer topicId, Integer cityId, String visibility, Timestamp created) {
+		return null;
+	}
+	
+	@Override
+	public Map<String, List> getCityGroupSize(String cityName, int[] buckets) {
+		return null;
+	}
+	
+	@Override
+	public Map<String, List> getCityCategoryGroupSize(String cityName) {
+		return null;
+	}
+	
 }
