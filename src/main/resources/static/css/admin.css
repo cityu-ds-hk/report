@@ -59,3 +59,9 @@ body{
      top: 0;
      width: 100%;
   }
+
+._carousel > div > img{
+    display: block;
+    width:100%;
+    height: auto;
+}

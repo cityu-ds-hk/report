@@ -32,8 +32,9 @@ window.onload = function(){
         y: [10, 15, 13, 17],
         type: 'scatter'
       };
-     var layout ={
-      title:'小组数量时间变化图'
+     var layout = {
+       width:1000,
+       height:400
      }
      var data = [number_groups]
     Plotly.newPlot('Event-TimeLineChart', data,layout);
@@ -69,9 +70,10 @@ window.onload = function(){
       yaxis: {
         range: [0, 8]
       },
-      title:'不同城市各个category下活动数量统计'
+     
     };
     
     Plotly.newPlot('Event-ScatterChart', data, layout);
+
   
    }

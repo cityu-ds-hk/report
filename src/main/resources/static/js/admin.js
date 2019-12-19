@@ -1,6 +1,4 @@
 
-
-
 //plotly.js 画图部分
 window.onload = function(){
 
@@ -36,7 +34,8 @@ window.onload = function(){
       type: 'scatter'
     };
    var layout ={
-    title:'小组数量时间变化图'
+    width:1000,
+   height:400
    }
    var data = [number_groups]
   Plotly.newPlot('Time-LineChart', data,layout);
@@ -72,7 +71,6 @@ window.onload = function(){
     yaxis: {
       range: [0, 8]
     },
-    title:'不同城市各个category下小组数量统计'
   };
   
   Plotly.newPlot('Group-ScatterChart', data, layout);
@@ -118,6 +116,63 @@ window.onload = function(){
 
   Plotly.newPlot('GroupSize-BarChart', group_bar_data,layout1);
 
+  
+  //GroupSize地图
+  var data = [{
+    type:'scattermapbox',
+    lat:['45.5017'],  //要填入的数据
+    lon:['-73.5673'],  //要填入的数据
+    mode:'markers',
+    marker: {
+      size:14
+    },
+    text:['Montreal']
+  }]
+  
+  var layout = {
+    autosize: true,
+    hovermode:'closest',
+    mapbox: {
+      bearing:0,
+      center: {
+        lat:45,
+        lon:-73
+      },
+      pitch:0,
+      zoom:5
+    },
+  }
+
+  Plotly.setPlotConfig({
+    mapboxAccessToken: "pk.eyJ1IjoibmFuYmVpNjI5IiwiYSI6ImNrM2ZrMDZxaDA1OTYzbm80cmFocGRuaTcifQ.sxVwhNQvZvSv93ZxQljNIQ"
+  })
+  var layout = {
+    height: 600,
+    width: 800
+  };
+  Plotly.plot('GroupSize-Map', data, layout)
+
+
+  //Top 20 Topics
+  var trace1 = {
+    x: [1, 2, 3, 4],
+    y: [10, 11, 12, 13],
+    mode: 'markers',
+    marker: {
+      size: [40, 60, 80, 100]
+    }
+  };
+  
+  var data = [trace1];
+  
+  var layout = {
+    title: 'Marker Size',
+    showlegend: false,
+    height: 600,
+    width: 600
+  };
+  
+  Plotly.newPlot('TopTopics-Chart', data, layout);
 
 }
 
@@ -125,13 +180,14 @@ window.onload = function(){
   
 
 //layui.js
-//不同模块切换
-layui.use(['element','laydate','layer','carousel'], function(){
+
+layui.use(['element','laydate','layer','carousel','form'], function(){
+
   var element = layui.element;
   var laydate = layui.laydate;
-  var $ = layui.$;
   var layer = layui.layer;
   var carousel = layui.carousel;
+  var form = layui.form;
 
   //轮播图
   carousel.render({
@@ -141,12 +197,7 @@ layui.use(['element','laydate','layer','carousel'], function(){
     ,height: '490px'
     //,anim: 'updown' //切换动画方式
     });
-
-
-    // 表单
-    var form = layui.form;
-
-  
+    
   //执行一个laydate实例
   laydate.render({
     elem: '#start-time' //指定元素
@@ -155,6 +206,8 @@ layui.use(['element','laydate','layer','carousel'], function(){
   laydate.render({
     elem: '#end-time' //指定元素
   });
+
+
 });
 
 
