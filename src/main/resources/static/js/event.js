@@ -86,6 +86,8 @@ onload_frame = function(){
 
     plot_category_scatter('Event-ScatterChart', base_path + 'event/categoryGroups', layout);
 
+    plot_bar_category('Event-BarChart', base_path + 'event/categoryCount');
+
 }
 
 onload_frame()
