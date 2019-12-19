@@ -36,12 +36,12 @@ function meta_data() {
 }
 
 meta_data()
-
-function sortMap(map) {
-    var arrayObj=Array.from(map);
-    arrayObj.sort(function(a,b){return a[0].localeCompare(b[0])});
-    return result = new Map(arrayObj.map(i => [i[0], i[1]]));
-}
+//
+// function sortMap(map) {
+//     var arrayObj=Array.from(map);
+//     arrayObj.sort(function(a,b){return a[0].localeCompare(b[0])});
+//     return result = new Map(arrayObj.map(i => [i[0], i[1]]));
+// }
 
 function plot_pie_city(element_id, url, layout) {
     if(layout === undefined) {
@@ -162,12 +162,12 @@ function plot_category_scatter(element_id, url, layout) {
                         }
                     }
                     var city_set_value = new Array()
-                    for(var city of city_set) {
+                    for(var city in city_set) {
                         city_set_value.push(metaData.cities[city])
                     }
-                    for(var category of category_set) {
+                    for(var category in category_set) {
                         var y = new Array()
-                        for(var city of city_set) {
+                        for(var city in city_set) {
                             var y_value = result[category][city];
                             if(y_value === undefined) {
                                 y_value = 0
@@ -192,6 +192,44 @@ function plot_category_scatter(element_id, url, layout) {
                 }
             },
             error: function (msg) {}
+        }
+    )
+}
+
+function plot_bar_city_group(element_id, url, layout) {
+    if(layout === undefined) {
+        layout = {height: 400, width: 500}
+    }
+    $.ajax({
+            url: url,
+            dataType: "json",
+            type: "POST",
+            timeout: 2000,
+            success: function (data) {
+                if (data.status == 200) {
+                    var result = data.data
+                    var index = 0;
+                    var xasix = {"0":"<100", "1":"<200",
+                        "2":"<300", "3":"<400", "4":"<500",
+                        "5":"<600", "6":"<700", "7":"<800",
+                        "8":"<900", "9":"<1000", "10":"<100000"};
+                    var values = new Array(result.length);
+                    var labels = new Array(result.length);
+                    for (var key in result) {
+                        values[index] = result[key]
+                        labels[index++] = xasix[key]
+                    }
+                    var bar_data = [{
+                        x: labels,
+                        y: values,
+                        type: 'bar'
+                    }];
+                    Plotly.newPlot(element_id, bar_data, layout);
+                }
+            },
+            error: function (msg) {
+                console.log(msg.toString());
+            }
         }
     )
 }

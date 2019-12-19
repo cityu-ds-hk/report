@@ -58,4 +58,19 @@
         </where>
         GROUP BY time
     </select>
+
+    <select id="getCityGroupSize" resultType="java.util.HashMap">
+        (select FLOOR(members  / 100) as bin, count(*) as num
+        from groups
+        where members &lt; 1000 and city_id=(
+          select city_id from cities where city=#{cityName}
+        )
+        GROUP BY bin)
+        union
+        (select 10 as bin, count(*) as num
+        from groups
+        where members >=1000 and city_id=(
+          select city_id from cities where city=#{cityName}
+        ))
+    </select>
 </mapper>

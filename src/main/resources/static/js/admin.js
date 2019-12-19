@@ -125,7 +125,7 @@ window.onload = function(){
 
 
   //GroupSize Barchart
-  var group_bar_data = [
+  var group_size_bar_data = [
     {
       x: ['giraffes', 'orangutans', 'monkeys'],
       y: [20, 14, 23],
@@ -133,12 +133,11 @@ window.onload = function(){
     }
   ];
 
-  var layout1 = {
-    height: 400,
-    width: 500
+  var group_size_layout = {
+      title:'Group Size'
   };
 
-  Plotly.newPlot('GroupSize-BarChart', group_bar_data,layout1);
+  Plotly.newPlot('GroupSize-BarChart', group_bar_data, layout1);
 
 
   //GroupSize地图
@@ -198,6 +197,8 @@ window.onload = function(){
 
   Plotly.newPlot('TopTopics-Chart', data, layout);
 
+    plot_bar_city_group('GroupSize-BarChart', 'group/cityGroupSize/San Francisco', group_size_layout)
+
 }
 
 
@@ -205,7 +206,7 @@ window.onload = function(){
 
 //layui.js
 //不同模块切换
-layui.use(['element','laydate','layer','carousel'], function(){
+layui.use(['element','laydate','layer','carousel','form'], function(){
   var element = layui.element;
   var laydate = layui.laydate;
   var $ = layui.$;
@@ -222,11 +223,6 @@ layui.use(['element','laydate','layer','carousel'], function(){
     //,anim: 'updown' //切换动画方式
     });
 
-
-    // 表单
-    var form = layui.form;
-
-  
   //执行一个laydate实例
   laydate.render({
     elem: '#start-time' //指定元素
@@ -235,6 +231,14 @@ layui.use(['element','laydate','layer','carousel'], function(){
   laydate.render({
     elem: '#end-time' //指定元素
   });
+
+  form.on('select(cityName)', function(data){
+    var cityName = data.value;
+    var group_size_layout = {
+        title:"Group Size"
+    };
+    plot_bar_city_group('GroupSize-BarChart', 'group/cityGroupSize/'+cityName, group_size_layout)
+  })
 });
 
 

@@ -3,15 +3,14 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <title>开始使用layui</title>
+  <title>Meetup Data Analysis</title>
 
   <link rel="stylesheet" href="/static/css/admin.css">
   <link rel="stylesheet" href="/static/layui/css/layui.css">
-
+    <script src="/static/js/jquery.min.js"></script>
   <script src="/static/layui/layui.js"></script>
   <script src="/static/js/plotly-latest.min.js"></script>
   <!-- <script src='https://cdn.plot.ly/plotly-latest.min.js'></script> -->
-    <script src="/static/js/jquery.min.js"></script>
     <script src="/static/js/common.js"></script>
   <script src="/static/js/admin.js"></script>
   
@@ -164,15 +163,15 @@
                         <!-- 城市选择下拉框 -->
                         <div class="layui-row">
                             <div class="layui-col-md4">
-                                <form class="layui-form" action="" name='city1'>
+                                <form class="layui-form" action="">
                                     <div class="layui-form-item">
                                         <label class="layui-form-label">城市</label>
                                         <div class="layui-input-block">
-                                            <select name="interest">
+                                            <select name="cityName" lay-filter="cityName">
                                                 <option value=""></option>
-                                                <option value="0">New York</option>
-                                                <option value="1" selected="">Chicago</option>
-                                                <option value="2">San Francisco</option>
+                                                <option value="New York">New York</option>
+                                                <option value="San Francisco" selected="">San Francisco</option>
+                                                <option value="Chicago">Chicago</option>
                                             </select>
                                         </div>
                                     </div>

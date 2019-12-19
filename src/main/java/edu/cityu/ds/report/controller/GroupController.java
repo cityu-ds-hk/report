@@ -10,10 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created by starice on 2019-12-18.
@@ -134,11 +131,12 @@ public class GroupController {
 		}
 	}
 	
-	@RequestMapping(value = "/cityGroupSize", method = RequestMethod.POST)
-	public Result getCityGroupSize(String cityName, HttpServletRequest request){
-		int[] buckets = {100, 200, 300, 400, 500, 600, 700, 800, 900, 1000, 100000};
-		Map<String, List> map = groupService.getCityGroupSize(cityName, buckets);
-		if(map!=null && map.size()!=0){
+	@RequestMapping(value = "/cityGroupSize/{cityName}", method = RequestMethod.POST)
+	public Result getCityGroupSize(@PathVariable(value = "cityName") String cityName, HttpServletRequest request){
+		if(cityName == null)cityName = "San Francisco";
+		String[] bins = {"<100", "<200", "<300", "<400", "<500", "<600", "<700", "<800", "<900", "<1000", "<100000"};
+		Map<String, Object>  map = groupService.getCityGroupSize(cityName);
+		if(map!=null && map.size()==11){
 			return new Result(200, null, null, map);
 		}else{
 			return new Result(202, null, "Program Failed", null);

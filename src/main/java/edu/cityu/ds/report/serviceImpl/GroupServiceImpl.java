@@ -73,8 +73,10 @@ public class GroupServiceImpl implements GroupService {
 	}
 	
 	@Override
-	public Map<String, List> getCityGroupSize(String cityName, int[] buckets) {
-		return null;
+	public Map<String, Object>  getCityGroupSize(String cityName) {
+		List<Map<String, Object>>  result = groupMapper.getCityGroupSize(cityName);
+		Map<String, Object> map =  CommonUtils.listMap2Map(result, "bin", "num");
+		return map;
 	}
 	
 	@Override
