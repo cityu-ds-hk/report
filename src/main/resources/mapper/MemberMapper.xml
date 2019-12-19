@@ -7,13 +7,13 @@
     </select>
 
 
-    <select id="listGroupNumCity" parameterType="String" resultType="java.util.HashMap">
+    <select id="listMemberNumByCity" parameterType="String" resultType="java.util.HashMap">
         SELECT city_id, count(*) as num
         FROM members
         GROUP BY city_id
     </select>
 
-    <select id="listGroupNumByDate" resultType="java.util.HashMap">
+    <select id="listMemberNumByDate" resultType="java.util.HashMap">
         SELECT DATE_FORMAT(created, #{period}) as time, count(*) as num
         FROM members
         <where>

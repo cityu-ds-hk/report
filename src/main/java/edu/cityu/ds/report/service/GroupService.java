@@ -12,16 +12,12 @@ public interface GroupService {
 
 	int getCount();
 	
-	Map<String, List> getAreaCount();
+	Map<String, Object> getAreaCount();
 	
-	List<Map<String, List>> getCategoryGroups();
+	Map<String, Map<String, Object>> getCategoryGroups();
 	
-	Map<String, List> getIncreasedCountTrend(Timestamp lTime, Timestamp rTime, String city);
+	Map<String, Object> getIncreasedCountTrend(Timestamp lTime, Timestamp rTime, Integer cityId);
 
-	List<Map<String, Object>> listGroupNumByCategoryCity();
-
-	List<Map<String, Object>> listGroupNumByCity();
-
-	List<Map<String, Object>> listGroupNumByDate(String period, int interval, String startDate, String endDate, Integer cityId);
+	Map<String, Object> getCategoryCount();
 
 }

@@ -32,10 +32,7 @@ class ReportApplicationTests {
 
     @Test
     void test() {
-//        List<Map<String, Object>> list = groupService.listGroupNumByCategoryCity();
-//        logger.info("List: {}", list);
-        List<Map<String, Object>> list = groupService.listGroupNumByDate("Year", 1, "2010", "2018", 10001);
-        logger.info("List: {}", list);
+
         Map<String, Object> map = commonService.getMetaData();
         logger.info("Map: {}", map);
 

@@ -37,7 +37,7 @@ public class LoginController {
         if(user != null){
             session.setAttribute("userName", user.getUserName());
             session.setAttribute("userId", user.getUserId());
-            return "index";
+            return "admin";
         }else {
             request.setAttribute("message", "User name or password error");
             return "forward:login";

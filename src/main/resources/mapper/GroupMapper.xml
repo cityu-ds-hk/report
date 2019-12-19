@@ -16,10 +16,16 @@
         GROUP BY category_id, city_id
     </select>
 
-    <select id="listGroupNumCity" parameterType="String" resultType="java.util.HashMap">
+    <select id="listGroupNumByCity" parameterType="String" resultType="java.util.HashMap">
         SELECT city_id, count(*) as num
         FROM groups
         GROUP BY city_id
+    </select>
+
+    <select id="listGroupNumByCategory" parameterType="String" resultType="java.util.HashMap">
+        SELECT category_id, count(*) as num
+        FROM groups
+        GROUP BY category_id
     </select>
 
     <select id="listGroupNumByDate" resultType="java.util.HashMap">
