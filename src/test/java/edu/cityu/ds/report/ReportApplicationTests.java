@@ -1,6 +1,7 @@
 package edu.cityu.ds.report;
 
 import edu.cityu.ds.report.entity.User;
+import edu.cityu.ds.report.service.CommonService;
 import edu.cityu.ds.report.service.GroupService;
 import edu.cityu.ds.report.service.UserService;
 import org.junit.jupiter.api.Test;
@@ -20,6 +21,8 @@ class ReportApplicationTests {
     UserService userService;
     @Autowired
     GroupService groupService;
+    @Autowired
+    CommonService commonService;
 
     @Test
     void contextLoads() {
@@ -29,10 +32,13 @@ class ReportApplicationTests {
 
     @Test
     void test() {
-        List<Map<String, Object>> list = groupService.listGroupNumByCategoryCity();
+//        List<Map<String, Object>> list = groupService.listGroupNumByCategoryCity();
+//        logger.info("List: {}", list);
+        List<Map<String, Object>> list = groupService.listGroupNumByDate("Year", 1, "2010", "2018", 10001);
         logger.info("List: {}", list);
-        list = groupService.listGroupNumByDate("Year", 1, "2010", "2018", 10001);
-        logger.info("List: {}", list);
+        Map<String, Object> map = commonService.getMetaData();
+        logger.info("Map: {}", map);
+
     }
 
 }

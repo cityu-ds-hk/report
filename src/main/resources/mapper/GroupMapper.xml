@@ -6,7 +6,7 @@
         SELECT count(*) FROM groups
     </select>
 
-    <select id="getGroupById" parameterType="Integer" resultMap="edu.cityu.ds.report.entity.Group">
+    <select id="getGroupById" parameterType="Integer" resultType="edu.cityu.ds.report.entity.Group">
         SELECT * from groups where group_id=#{groupId}
     </select>
 

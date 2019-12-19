@@ -6,7 +6,7 @@
         SELECT count(*) FROM events
     </select>
 
-    <select id="getEventById" parameterType="Integer" resultMap="edu.cityu.ds.report.entity.Event">
+    <select id="getEventById" parameterType="Integer" resultType="edu.cityu.ds.report.entity.Event">
         SELECT * from events where event_id=#{eventId}
     </select>
 
