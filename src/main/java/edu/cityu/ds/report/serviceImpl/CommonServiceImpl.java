@@ -29,8 +29,10 @@ public class CommonServiceImpl implements CommonService {
         Map<String, Object> resultMap = new HashMap<>();
         List<City> cityList = cityMapper.listCity();
         List<Category> categoryList = categoryMapper.listCategory();
+        List<Topic> topicList = topicMapper.listTopic();
         Map<Integer, String> cityMap = new HashMap<>();
         Map<Integer, String> categoryMap = new HashMap<>();
+        Map<Integer, String> topicMap = new HashMap<>();
 
         for(City city: cityList) {
             cityMap.put(city.getCityId(), city.getCity());
@@ -39,9 +41,13 @@ public class CommonServiceImpl implements CommonService {
         for(Category category: categoryList) {
             categoryMap.put(category.getCategoryId(), category.getCategoryName());
         }
+
+        for(Topic topic: topicList) {
+            topicMap.put(topic.getTopicId(), topic.getTopicName());
+        }
         resultMap.put("cities", cityMap);
         resultMap.put("categories", categoryMap);
-//        resultMap.put("topics", topicMapper.listTopic());
+        resultMap.put("topics", topicMap);
         return resultMap;
     }
 }
