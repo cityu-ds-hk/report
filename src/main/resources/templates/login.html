@@ -16,18 +16,18 @@
                 <div class="layui-form-item">
                     <label class="layui-form-label">用户名</label>
                     <div class="layui-input-block">
-                        <input type="text" name="userName" lay-verify="userId" autocomplete="off" placeholder="请输入用户ID" class="layui-input">
+                        <input id="userName" type="text" name="userName" lay-verify="userId" autocomplete="off" placeholder="请输入用户ID" class="layui-input">
                     </div>
                 </div>
                 <div class="layui-form-item">
                     <label class="layui-form-label">密码</label>
                     <div class="layui-input-block">
-                        <input type="password" name="password" lay-verify="password" placeholder="请输入密码" autocomplete="off" class="layui-input">
+                        <input id="password" type="password" name="password" lay-verify="password" placeholder="请输入密码" autocomplete="off" class="layui-input">
                     </div>
                 </div>
                 <div class="layui-form-item">
                     <div class="layui-input-block">
-                        <button class="layui-btn" lay-submit lay-filter="login">登录</button>
+                        <button class="layui-btn" lay-submit lay-filter="login" id="submit">登录</button>
                         <button type="reset" class="layui-btn layui-btn-primary">重置</button>
                     </div>
                 </div>
@@ -72,33 +72,71 @@
                 ,'密码必须6到12位，且不能出现空格'
             ]
         });
-        //监听提交
-        form.on('submit(login)', function(data){
-            // layer.alert("!!!!!");这句话语法有问题影响了ajax
+
+        $('#submit').click(function(){
+            // console.log($('#userName').value | $('#userName').val(), $('#password').value | $('#password').val())
+            // alert(JSON.stringify({"userName":$('#userName').value, "password": $('#password').value}))
             $.ajax({
                 url: "doLogin",
-                type:"POST",
+                type: "POST",
                 async: false,
-                data:JSON.stringify(data.field),
-                dataType:'json',
-                contentType: "application/json; charset=utf-8",
-                success:function(result){
+                data: {'userName':'admin', 'password': 'admin'},
+                dataType: 'json',
+                contentType: "application/x-www-form-urlencoded",
+                success: function(result) {
                     // if(result.code == "0000"){
                     //     //保存用户信息到session中
                     //     window.sessionStorage.setItem("sysUser",result.resultData.userName);
                     //     window.sessionStorage.setItem("userId",result.resultData.userId);
                     //     window.sessionStorage.setItem("tag", result.resultData.tag);
-                        window.location.href = "admin";
+                    // window.location.href = "admin";
+                    document.write(result)
+
+                    //
                     // }else{
                     //     layer.alert("用户ID或密码错误！")
                     // }
                 },
-                error:function (result) {
+                error: function (result) {
                     // layer.alert(result);
                     console.log(result);
                 }
             });
-        });
+        })
+        //监听提交
+        // form.on('submit(login)', function(data){
+        //     // layer.alert("!!!!!");这句话语法有问题影响了ajax
+        //     alert(data.field);
+        //     $.ajax({
+        //         url: "doLogin",
+        //         type:"POST",
+        //         async: false,
+        //         data:JSON.stringify(data.field),
+        //         dataType:'json',
+        //         // contentType: "application/json; charset=utf-8",
+        //         success:function(result){
+        //             alert('aa')
+        //             console.log('aaaaaaaaa')
+        //             // if(result.code == "0000"){
+        //             //     //保存用户信息到session中
+        //             //     window.sessionStorage.setItem("sysUser",result.resultData.userName);
+        //             //     window.sessionStorage.setItem("userId",result.resultData.userId);
+        //             //     window.sessionStorage.setItem("tag", result.resultData.tag);
+        //             window.location.href = "admin";
+        //             document.write(result)
+        //             console.log('aaaaaaaaa')
+        //
+        //                 //
+        //             // }else{
+        //             //     layer.alert("用户ID或密码错误！")
+        //             // }
+        //         },
+        //         error:function (result) {
+        //             // layer.alert(result);
+        //             console.log(result);
+        //         }
+        //     });
+        // });
     });
 </script>
 </body>

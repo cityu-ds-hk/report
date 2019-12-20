@@ -230,10 +230,48 @@ window.onload = function(){
 
    plot_map('GroupSize-Map', 'group/cityCategoryGroupMap/San Francisco', group_map_layout);
 
+  var layout = {
+    title: 'Group Size',
+    showlegend: false,
+    height: 600,
+    width: 600
+  };
+
+  $.ajax({
+    url: base_path + 'topic/topTopics',
+    dataType: "json",
+    type: "GET",
+    timeout: 2000,
+    success: function (data) {
+      if (data.status == 200) {
+        var result = data.data
+        var index = 0;
+        var values = new Array(result.length);
+        var labels = new Array(result.length);
+        var y = new Array(result.length);
+        for (var key in result) {
+          values[index] = result[key] / 5
+          labels[index] = metaData.topics[key]
+          y[index++] = (index);
+        }
+
+        var traces_data = [{
+          x: labels,
+          y: y,
+          mode: 'markers',
+          marker: {
+            size: values
+          }
+        }];
+        Plotly.newPlot('TopTopics-Chart', traces_data, layout);
+      }
+    },
+    error: function (msg) {}
+  })
+
+
 }
 
-
-  
 
 //layui.js
 //不同模块切换

@@ -51,7 +51,7 @@ function plot_pie_city(element_id, url, layout) {
             url: url,
             dataType: "json",
             type: "GET",
-            timeout: 2000,
+            timeout: 20000,
             success: function (data) {
                 if (data.status == 200) {
                     var result = data.data
@@ -83,7 +83,7 @@ function plot_bar_category(element_id, url, layout) {
             url: url,
             dataType: "json",
             type: "POST",
-            timeout: 2000,
+            timeout: 20000,
             success: function (data) {
                 if (data.status == 200) {
                     var result = data.data
@@ -116,7 +116,7 @@ function plot_time_line(element_id, url, layout) {
             url: url,
             dataType: "json",
             type: "POST",
-            timeout: 2000,
+            timeout: 20000,
             success: function (data) {
                 if (data.status == 200) {
                     var result = data.data
@@ -146,7 +146,7 @@ function plot_category_scatter(element_id, url, layout) {
             url: url,
             dataType: "json",
             type: "POST",
-            timeout: 2000,
+            timeout: 20000,
             success: function (data) {
                 var trace_list = new Array()
                 if (data.status == 200) {
@@ -162,12 +162,12 @@ function plot_category_scatter(element_id, url, layout) {
                         }
                     }
                     var city_set_value = new Array()
-                    for(var city in city_set) {
+                    for(var city of city_set) {
                         city_set_value.push(metaData.cities[city])
                     }
-                    for(var category in category_set) {
+                    for(var category of category_set) {
                         var y = new Array()
-                        for(var city in city_set) {
+                        for(var city of city_set) {
                             var y_value = result[category][city];
                             if(y_value === undefined) {
                                 y_value = 0
@@ -204,7 +204,7 @@ function plot_bar_city_group(element_id, url, layout) {
             url: url,
             dataType: "json",
             type: "POST",
-            timeout: 2000,
+            timeout: 20000,
             success: function (data) {
                 if (data.status == 200) {
                     var result = data.data
@@ -242,7 +242,7 @@ function plot_map(element_id, url, layout) {
             url: url,
             dataType: "json",
             type: "POST",
-            timeout: 2000,
+            timeout: 20000,
             success: function (data) {
                 if (data.status == 200) {
                     var result = data.data
