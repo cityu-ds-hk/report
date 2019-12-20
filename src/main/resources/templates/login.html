@@ -4,8 +4,12 @@
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="/static/css/admin.css">
     <link rel="stylesheet" href="/static/layui/css/layui.css">
+    <script src="/static/js/jquery.min.js"></script>
     <script src="/static/layui/layui.js"></script>
+    <!--<link rel="stylesheet" href="/static/layui/css/layui.css">-->
+    <!--<script src="/static/layui/layui.js"></script>-->
 </head>
 <body>
 <div class="layui-fluid">
@@ -14,26 +18,26 @@
         <div class="layui-col-sm6" style="margin-top:150px;" >
             <form class="layui-form" action="">
                 <div class="layui-form-item">
-                    <label class="layui-form-label">用户名</label>
+                    <label class="layui-form-label">userName</label>
                     <div class="layui-input-block">
-                        <input id="userName" type="text" name="userName" lay-verify="userId" autocomplete="off" placeholder="请输入用户ID" class="layui-input">
+                        <input id="userName" type="text" name="userName" lay-verify="userId" autocomplete="off" placeholder="please input user name" class="layui-input">
                     </div>
                 </div>
                 <div class="layui-form-item">
-                    <label class="layui-form-label">密码</label>
+                    <label class="layui-form-label">password</label>
                     <div class="layui-input-block">
-                        <input id="password" type="password" name="password" lay-verify="password" placeholder="请输入密码" autocomplete="off" class="layui-input">
+                        <input id="password" type="password" name="password" lay-verify="password" placeholder="please input password" autocomplete="off" class="layui-input">
                     </div>
                 </div>
                 <div class="layui-form-item">
                     <div class="layui-input-block">
-                        <button class="layui-btn" lay-submit lay-filter="login" id="submit">登录</button>
-                        <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+                        <button class="layui-btn" lay-submit lay-filter="login" id="submit">login</button>
+                        <button type="reset" class="layui-btn layui-btn-primary">reset</button>
                     </div>
                 </div>
-                <div class="layui-form-item">
-                    <a href="<%=basePath%>register" style="float: right;">没有账号？点我注册</a>
-                </div>
+                <!--<div class="layui-form-item">-->
+                    <!--<a href="<%=basePath%>register" style="float: right;">没有账号？点我注册</a>-->
+                <!--</div>-->
             </form>
         </div>
         <div class="layui-col-sm3"><hr class="layui-bg-white"> </div>
@@ -64,79 +68,36 @@
         form.verify({
             userId: function (value, item) { //value：表单的值、item：表单的DOM对象
                 if (value.length == 0) {
-                    return "用户ID不能为空";
+                    return "user name can not be null";
                 }
             },
             password: [
                 /^[\S]{0,12}$/
-                ,'密码必须6到12位，且不能出现空格'
+                ,'the length of password must be within 0~12'
             ]
         });
 
-        $('#submit').click(function(){
-            // console.log($('#userName').value | $('#userName').val(), $('#password').value | $('#password').val())
-            // alert(JSON.stringify({"userName":$('#userName').value, "password": $('#password').value}))
+        form.on('submit(login)', function(data){
             $.ajax({
                 url: "doLogin",
                 type: "POST",
-                async: false,
-                data: {'userName':'admin', 'password': 'admin'},
-                dataType: 'json',
+                async: true,
+                data: {'userName':$('#userName').val(), 'password': $('#password').val()},
+                dataType: 'text',
                 contentType: "application/x-www-form-urlencoded",
                 success: function(result) {
-                    // if(result.code == "0000"){
-                    //     //保存用户信息到session中
-                    //     window.sessionStorage.setItem("sysUser",result.resultData.userName);
-                    //     window.sessionStorage.setItem("userId",result.resultData.userId);
-                    //     window.sessionStorage.setItem("tag", result.resultData.tag);
-                    // window.location.href = "admin";
-                    document.write(result)
-
-                    //
-                    // }else{
-                    //     layer.alert("用户ID或密码错误！")
-                    // }
+                    if(document.write(result).equals("admin") ){
+                        window.location.href = "admin";
+                    }else{
+                        window.location.href = "login";
+                    }
                 },
                 error: function (result) {
-                    // layer.alert(result);
                     console.log(result);
                 }
             });
-        })
-        //监听提交
-        // form.on('submit(login)', function(data){
-        //     // layer.alert("!!!!!");这句话语法有问题影响了ajax
-        //     alert(data.field);
-        //     $.ajax({
-        //         url: "doLogin",
-        //         type:"POST",
-        //         async: false,
-        //         data:JSON.stringify(data.field),
-        //         dataType:'json',
-        //         // contentType: "application/json; charset=utf-8",
-        //         success:function(result){
-        //             alert('aa')
-        //             console.log('aaaaaaaaa')
-        //             // if(result.code == "0000"){
-        //             //     //保存用户信息到session中
-        //             //     window.sessionStorage.setItem("sysUser",result.resultData.userName);
-        //             //     window.sessionStorage.setItem("userId",result.resultData.userId);
-        //             //     window.sessionStorage.setItem("tag", result.resultData.tag);
-        //             window.location.href = "admin";
-        //             document.write(result)
-        //             console.log('aaaaaaaaa')
-        //
-        //                 //
-        //             // }else{
-        //             //     layer.alert("用户ID或密码错误！")
-        //             // }
-        //         },
-        //         error:function (result) {
-        //             // layer.alert(result);
-        //             console.log(result);
-        //         }
-        //     });
-        // });
+            return false;
+        });
     });
 </script>
 </body>

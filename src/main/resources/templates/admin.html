@@ -45,7 +45,7 @@
         <!-- 小组数量 -->
         <div class="layui-col-md3" style="margin-left: 5%;">
             <div class="layui-col-md3 text-format">
-                小组数量
+                Groups
             </div>
             <div class="layui-col-md9">
 
@@ -58,7 +58,7 @@
         <div class="layui-col-md1" style="background-color: white;"> &nbsp;</div>
         <div class="layui-col-md3" >
             <div class="layui-col-md3 text-format">
-                成员数量
+                Members
             </div>
             <div class="layui-col-md9">
 
@@ -72,7 +72,7 @@
         <!-- 活动数量 -->
         <div class="layui-col-md3">
             <div class="layui-col-md3 text-format">
-                活动数量
+                Events
             </div>
             <div class="layui-col-md9">
 
@@ -88,16 +88,16 @@
 
     <div class="layui-tab" style="background-color: white;">
         <ul class="layui-tab-title">
-            <li class="layui-this">小组数据</li>
-            <li><a href="/static/member.html" target="member_target">用户数据</a></li>
-            <li><a href="/static/event.html" target="event_target">活动数据</a></li>
+            <li class="layui-this">Group Data</li>
+            <li><a href="/static/member.html" target="member_target">Member Data</a></li>
+            <li><a href="/static/event.html" target="event_target">Event Data</a></li>
         </ul>
         <div class="layui-tab-content">
 
             <!-- 小组数据展示 -->
             <div class="layui-tab-item layui-show">
                 <div class="layui-card" style="background-color: white">
-                    <div class="layui-card-header">小组数量城市分布图/小组数量categroy分布图</div>
+                    <div class="layui-card-header">The number of groups in different areas/The number of groups with different categories</div>
                     <div class="layui-card-body">
                         <!-- 第一部分 （饼图/柱状图） -->
                         <div class="layui-row">
@@ -116,7 +116,7 @@
 
                 <!-- 第二部分 -->
                 <div class="layui-card" style="background-color: white">
-                    <div class="layui-card-header">小组数量时间变化图</div>
+                    <div class="layui-card-header">Group numbers with time</div>
                     <div class="layui-card-body">
                         <div class = "layui-row" >
                             <!-- 时间选择 -->
@@ -144,7 +144,7 @@
 
                 <div class="layui-tab-item layui-show">
                     <div class="layui-card" style="background-color: white">
-                        <div class="layui-card-header">不同城市的小组数量统计图</div>
+                        <div class="layui-card-header">The number of groups in different cities</div>
                         <div class="layui-card-body">
                             <!-- 第三部分 -->
                             <div class = "layui-row" >
@@ -158,14 +158,14 @@
                 <!-- 第四部分 -->
                 <!-- groupsize 柱状分布图 -->
                 <div class="layui-card" style="background-color: white;border-radius: 5px;">
-                    <div class="layui-card-header">小组数量分布图</div>
+                    <div class="layui-card-header">Group size distribution</div>
                     <div class="layui-card-body">
                         <!-- 城市选择下拉框 -->
                         <div class="layui-row">
                             <div class="layui-col-md4">
                                 <form class="layui-form" action="">
                                     <div class="layui-form-item">
-                                        <label class="layui-form-label">城市</label>
+                                        <label class="layui-form-label">City</label>
                                         <div class="layui-input-block">
                                             <select name="cityName" lay-filter="cityName">
                                                 <option value=""></option>
@@ -189,14 +189,14 @@
 
                 <!-- groupsize 分布地图 -->
                 <div class="layui-card" style="background-color: white;border-radius: 5px;margin-top: 10px;">
-                    <div class="layui-card-header">小组数量分布地图</div>
+                    <div class="layui-card-header">Group size map</div>
                     <div class="layui-card-body">
                         <!-- 城市选择下拉框 -->
                         <div class="layui-row">
                             <div class="layui-col-md4">
                                 <form class="layui-form" action="" name="city2">
                                     <div class="layui-form-item">
-                                        <label class="layui-form-label">城市</label>
+                                        <label class="layui-form-label">City</label>
                                         <div class="layui-input-block">
                                             <select name="city" lay-filter="city">
                                                 <option value=""></option>

@@ -5,7 +5,7 @@ window.onload = function(){
         url: base_path + "common/allCount",
         dataType: "json",
         type: "GET",
-        timeout: 2000,
+        timeout: 20000,
         success: function (data) {
           if(data.status == 200){
             $('#Num-group').html(data.data['group'])
@@ -49,7 +49,7 @@ window.onload = function(){
       type: 'scatter'
     };
    var layout ={
-    title:'小组数量时间变化图'
+    title:'Group numbers with time'
    }
    var data = [number_groups]
   Plotly.newPlot('Time-LineChart', data,layout);
@@ -85,7 +85,7 @@ window.onload = function(){
     yaxis: {
       range: [0, 8]
     },
-    title:'不同城市各个category下小组数量统计'
+    title:'The number of groups in different cities'
   };
   
   Plotly.newPlot('Group-ScatterChart', data, layout);
@@ -113,12 +113,12 @@ window.onload = function(){
   plot_pie_city('Group-PieChart', 'group/areaCount', layout)
   plot_bar_category('Group-BarChart', 'group/categoryCount', layout)
   var layout ={
-    title:'小组数量时间变化图'
+    title:'Group numbers with time'
   }
   plot_time_line('Time-LineChart', 'group/increasedCountTrend?', layout)
 
   var layout = {
-    title:'不同城市各个category下小组数量统计'
+    title:'The number of groups in different cities'
   };
 
   plot_category_scatter('Group-ScatterChart', 'group/categoryGroups', layout);
@@ -241,7 +241,7 @@ window.onload = function(){
     url: base_path + 'topic/topTopics',
     dataType: "json",
     type: "GET",
-    timeout: 2000,
+    timeout: 20000,
     success: function (data) {
       if (data.status == 200) {
         var result = data.data

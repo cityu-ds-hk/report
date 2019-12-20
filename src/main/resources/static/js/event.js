@@ -69,7 +69,7 @@ onload_frame = function(){
       yaxis: {
         range: [0, 8]
       },
-      title:'不同城市各个category下活动数量统计'
+      title:'The number of events in different cities'
     };
     
     Plotly.newPlot('Event-ScatterChart', data, layout);
@@ -111,12 +111,12 @@ onload_frame = function(){
 
     plot_pie_city('Event-PieChart', base_path + 'event/areaCount')
     var layout ={
-        title:'小组数量时间变化图'
+        title:'Event number with time'
     }
     plot_time_line('Event-TimeLineChart', base_path + 'event/increasedCountTrend?', layout)
 
     var layout = {
-        title:'不同城市各个category下小组数量统计'
+        title:'Event distribution with different categories in three cities'
     };
 
     plot_category_scatter('Event-ScatterChart', base_path + 'event/categoryGroups', layout);

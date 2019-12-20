@@ -22,14 +22,14 @@ onload_frame = function(){
         type: 'scatter'
       };
      var layout ={
-      title:'小组数量时间变化图'
+      title:'The number of Members in different areas'
      }
      var data = [number_groups]
     Plotly.newPlot('Member-TimeLineChart', data,layout);
 
     plot_pie_city('Member-PieChart', base_path + 'admin/areaCount')
     var layout ={
-        title:'小组数量时间变化图'
+        title:'Group number with time'
     }
     plot_time_line('Member-TimeLineChart', base_path + 'admin/increasedCountTrend?', layout)
 

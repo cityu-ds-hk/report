@@ -35,6 +35,7 @@ public class LoginController {
 
     @RequestMapping("/admin")
     public String admin(){
+
         return "admin";
     }
 
