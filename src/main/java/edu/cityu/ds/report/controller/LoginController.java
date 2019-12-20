@@ -33,7 +33,7 @@ public class LoginController {
         return "meetup";
     }
 
-    @RequestMapping("/admin")
+    @RequestMapping({"/admin", "/"})
     public String admin(){
 
         return "admin";

@@ -1,12 +1,14 @@
 package edu.cityu.ds.report.intercepter;
 
 import org.springframework.lang.Nullable;
+import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+@Component
 public class AuthIntercepter extends HandlerInterceptorAdapter {
 
     @Override
