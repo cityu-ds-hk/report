@@ -180,9 +180,9 @@
                         </div>
                         <!-- 柱状图 -->
                         <div class="layui-row">
-                            <div class="layui-col-md3">&nbsp;</div>
-                            <div class="layui-col-md6" id="GroupSize-BarChart"></div>
-                            <div class="layui-col-md3">&nbsp;</div>
+                            <div class="layui-col-md2">&nbsp;</div>
+                            <div class="layui-col-md8" id="GroupSize-BarChart"></div>
+                            <div class="layui-col-md2">&nbsp;</div>
                         </div>
                     </div>
                 </div>
@@ -198,11 +198,11 @@
                                     <div class="layui-form-item">
                                         <label class="layui-form-label">城市</label>
                                         <div class="layui-input-block">
-                                            <select name="interest">
+                                            <select name="city" lay-filter="city">
                                                 <option value=""></option>
-                                                <option value="0">New York</option>
-                                                <option value="1" selected="">Chicago</option>
-                                                <option value="2">San Francisco</option>
+                                                <option value="New York">New York</option>
+                                                <option value="Chicago" >Chicago</option>
+                                                <option value="San Francisco" selected="">San Francisco</option>
                                             </select>
                                         </div>
                                     </div>
@@ -233,7 +233,7 @@
                 </div>
             </div>
             <div style="height: 800px;" class="layui-tab-item  iframe-container"><iframe name="member_target" scrolling="no"  frameborder="0" class="iframe" ></iframe></div>
-            <div style="height: 800px;" class="layui-tab-item iframe-container"><iframe name="event_target" scrolling="no"  frameborder="0" class="iframe"></iframe></div>
+            <div style="height: 1600px;" class="layui-tab-item iframe-container"><iframe name="event_target" scrolling="no"  frameborder="0" class="iframe"></iframe></div>
         </div>
 
     </div>

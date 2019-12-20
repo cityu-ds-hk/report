@@ -100,8 +100,8 @@ window.onload = function(){
   ];
 
   var layout1 = {
-    height: 400,
-    width: 500
+    height: 600,
+    width: 800
   };
 
   Plotly.newPlot('GroupSize-BarChart', group_bar_data,layout1);
@@ -134,8 +134,21 @@ window.onload = function(){
   ];
 
   var group_size_layout = {
-      title:'Group Size'
-  };
+    autosize: true,
+    height:600,
+    width:800,
+    title:'Group Size Map',
+    hovermode:'closest',
+    mapbox: {
+      bearing:0,
+      center: {
+        lat:33.78,
+        lon:-122.42
+      },
+      pitch:0,
+      zoom:5
+    },
+  }
 
   Plotly.newPlot('GroupSize-BarChart', group_bar_data, layout1);
 
@@ -152,14 +165,17 @@ window.onload = function(){
     text:['Montreal']
   }]
 
-  var layout = {
+  var map_group_size_layout = {
     autosize: true,
+    height: 600,
+    width: 800,
+     title:'Group Size Map',
     hovermode:'closest',
     mapbox: {
       bearing:0,
       center: {
-        lat:45,
-        lon:-73
+        lat:37.78,
+        lon:-122.42
       },
       pitch:0,
       zoom:5
@@ -169,11 +185,24 @@ window.onload = function(){
   Plotly.setPlotConfig({
     mapboxAccessToken: "pk.eyJ1IjoibmFuYmVpNjI5IiwiYSI6ImNrM2ZrMDZxaDA1OTYzbm80cmFocGRuaTcifQ.sxVwhNQvZvSv93ZxQljNIQ"
   })
-  var layout = {
-    height: 600,
-    width: 800
-  };
-  Plotly.plot('GroupSize-Map', data, layout)
+  var group_map_layout = {
+    autosize: true,
+    height:600,
+    width:800,
+    title:'Group Size Map',
+    hovermode:'closest',
+    mapbox: {
+      // style:'dark',
+      bearing:0,
+      center: {
+        lat:33.78,
+        lon:-122.42
+      },
+      pitch:0,
+      zoom:5
+    },
+  }
+  Plotly.plot('GroupSize-Map', data, group_map_layout)
 
 
   //Top 20 Topics
@@ -198,6 +227,8 @@ window.onload = function(){
   Plotly.newPlot('TopTopics-Chart', data, layout);
 
     plot_bar_city_group('GroupSize-BarChart', 'group/cityGroupSize/San Francisco', group_size_layout)
+
+   plot_map('GroupSize-Map', 'group/cityCategoryGroupMap/San Francisco', group_map_layout);
 
 }
 
@@ -238,6 +269,28 @@ layui.use(['element','laydate','layer','carousel','form'], function(){
         title:"Group Size"
     };
     plot_bar_city_group('GroupSize-BarChart', 'group/cityGroupSize/'+cityName, group_size_layout)
+  })
+
+  form.on('select(city)', function(data){
+    var cityName = data.value;
+    var group_map_layout = {
+      autosize: true,
+      height:600,
+      width:800,
+      title:'Group Size Map',
+      hovermode:'closest',
+      mapbox: {
+        // style:'dark',
+        bearing:0,
+        center: {
+          lat:33.78,
+          lon:-122.42
+        },
+        pitch:0,
+        zoom:5
+      },
+    }
+    plot_map('GroupSize-Map', 'group/cityCategoryGroupMap/'+cityName, group_map_layout);
   })
 });
 

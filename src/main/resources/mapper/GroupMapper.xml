@@ -73,4 +73,15 @@
           select city_id from cities where city=#{cityName}
         ))
     </select>
+
+	<select id="getCityCategoryGroupMap" resultType="java.util.HashMap">
+		select lat as vlat, lon as vlon, count(group_id) as num, category_id
+		from `groups`
+		where city_id in (
+			  select city_id
+			  from cities
+			  where city like "%"#{cityName}"%"
+		  )
+		group by lat, lon, category_id
+	</select>
 </mapper>

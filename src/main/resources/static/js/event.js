@@ -74,6 +74,41 @@ onload_frame = function(){
     
     Plotly.newPlot('Event-ScatterChart', data, layout);
 
+    //Event地图
+    var data = [{
+        type:'scattermapbox',
+        lat:['45.5017'],  //要填入的数据
+        lon:['-73.5673'],  //要填入的数据
+        mode:'markers',
+        marker: {
+            size:14
+        },
+        text:['Montreal']
+    }]
+
+    var event_map_layout = {
+        autosize: true,
+        height:600,
+        width:800,
+        title:'Event Map',
+        hovermode:'closest',
+        mapbox: {
+            // style:'dark',
+            bearing:0,
+            center: {
+                lat:33.78,
+                lon:-122.42
+            },
+            pitch:0,
+            zoom:5
+        },
+    }
+
+    Plotly.setPlotConfig({
+        mapboxAccessToken: "pk.eyJ1IjoibmFuYmVpNjI5IiwiYSI6ImNrM2ZrMDZxaDA1OTYzbm80cmFocGRuaTcifQ.sxVwhNQvZvSv93ZxQljNIQ"
+    })
+    Plotly.plot('Event-Map', data, event_map_layout)
+
     plot_pie_city('Event-PieChart', base_path + 'event/areaCount')
     var layout ={
         title:'小组数量时间变化图'
@@ -88,6 +123,49 @@ onload_frame = function(){
 
     plot_bar_category('Event-BarChart', base_path + 'event/categoryCount');
 
+    // plot_bar_city_group('Event-Map', base_path + 'group/cityGroupSize/San Francisco', event_bar_layout);
+
+    plot_map('Event-Map', base_path +'event/cityEventMap/San Francisco', event_map_layout);
+
 }
 
 onload_frame()
+
+layui.use(['element','laydate','layer','form'], function() {
+    var element = layui.element;
+    var laydate = layui.laydate;
+    var $ = layui.$;
+    var layer = layui.layer;
+    var form = layui.form;
+
+    //执行一个laydate实例
+    laydate.render({
+        elem: '#start-time' //指定元素
+    });
+
+    laydate.render({
+        elem: '#end-time' //指定元素
+    });
+
+    form.on('select(eventCity)', function(data){
+        var cityName = data.value;
+        var event_map_layout = {
+            autosize: true,
+            height:600,
+            width:800,
+            title:'Event Map',
+            hovermode:'closest',
+            mapbox: {
+                bearing:0,
+                center: {
+                    lat:33.78,
+                    lon:-122.42
+                },
+                pitch:0,
+                zoom:5
+            },
+        }
+        plot_map('Event-Map', base_path +'event/cityEventMap/'+cityName, event_map_layout);
+    })
+
+})

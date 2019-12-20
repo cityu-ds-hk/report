@@ -71,8 +71,36 @@
 
     </div>
 </div>
-</div>
-</div>
+
+<!-- event 分布地图 -->
+<div class="layui-card" style="background-color: white;border-radius: 5px;margin-top: 10px;">
+    <div class="layui-card-header">event分布地图</div>
+    <div class="layui-card-body">
+        <!-- 城市选择下拉框 -->
+        <div class="layui-row">
+            <div class="layui-col-md4">
+                <form class="layui-form" action="" name="city2">
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">城市</label>
+                        <div class="layui-input-block">
+                            <select name="eventCity" lay-filter="eventCity">
+                                <option value=""></option>
+                                <option value="New York">New York</option>
+                                <option value="Chicago" >Chicago</option>
+                                <option value="San Francisco" selected="">San Francisco</option>
+                            </select>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <!-- 地图 -->
+        <div class="layui-row">
+            <div class="layui-col-md2">&nbsp;</div>
+            <div class="layui-col-md8" id="Event-Map"></div>
+            <div class="layui-col-md2">&nbsp;</div>
+        </div>
+    </div>
 </div>
 </body>
 <script src="/static/js/event.js"></script>

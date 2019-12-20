@@ -59,5 +59,12 @@ public class EventServiceImpl  implements EventService {
 
 		return CommonUtils.listMap2Map(list, "category_id", "num");
 	}
-
+	
+	@Override
+	public Map<String, List> getCityEventMap(String city) {
+		List<Map<String, Object>> list = eventMapper.getCityEventMap(city);
+		String[] keys = new String[]{"num", "vlat", "vlon", "category_id"};
+		Map<String, List> map = CommonUtils.commonMaplist2Map(list, keys);
+		return map;
+	}
 }

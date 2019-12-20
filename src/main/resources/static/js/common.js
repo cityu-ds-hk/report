@@ -198,7 +198,7 @@ function plot_category_scatter(element_id, url, layout) {
 
 function plot_bar_city_group(element_id, url, layout) {
     if(layout === undefined) {
-        layout = {height: 400, width: 500}
+        title:'Group Size'
     }
     $.ajax({
             url: url,
@@ -233,3 +233,47 @@ function plot_bar_city_group(element_id, url, layout) {
         }
     )
 }
+
+function plot_map(element_id, url, layout) {
+    if (layout === undefined) {
+        title:'Event Map'
+    }
+    $.ajax({
+            url: url,
+            dataType: "json",
+            type: "POST",
+            timeout: 2000,
+            success: function (data) {
+                if (data.status == 200) {
+                    var result = data.data
+                    var index = 0;
+                    var lats = result['vlat'];
+                    var lons = result['vlon'];
+                    var sizes = result['num'];
+                    let new_sizes = sizes.map(item  => 0.1*item);
+                    var center = result['center'];
+                    var categories = result['category_id'];
+                    var event_map_data = [{
+                        type:'scattermapbox',
+                        lat:lats,  //要填入的数据
+                        lon:lons,  //要填入的数据
+                        mode:'markers',
+                        marker: {
+                            size:new_sizes,
+                            color:categories,
+                            colorscale:'Blues',
+                        },
+                        text:sizes
+                    }];
+                    layout.mapbox.center.lat = center[0];
+                    layout.mapbox.center.lon = center[1];
+                    Plotly.newPlot(element_id, event_map_data, layout);
+                }
+            },
+            error: function (msg) {
+                console.log(msg.toString());
+            }
+        }
+    )
+}
+

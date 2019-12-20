@@ -144,21 +144,23 @@ public class GroupController {
 	}
 	
 	//draw map
-	@RequestMapping(value = "/cityCategoryGroupSize", method = RequestMethod.POST)
-	public Result getCityCategoryGroupSize(String city, HttpServletRequest request){
+	@RequestMapping(value = "/cityCategoryGroupMap/{city}", method = RequestMethod.POST)
+	public Result getCityCategoryGroupMap(@PathVariable(value = "city") String city, HttpServletRequest request){
 		List<Double> center = new ArrayList<Double>();
-		if(city == "San Francisco"){
+		if(city.equals( "San Francisco")){
 			center.add(37.78);
 			center.add(-122.42);
-		}else if(city =="New York"){
+		}
+		else if(city.equals("New York")){
 			center.add(40.785091);
 			center.add(-73.968285);
-		}else{
+		}
+		else{
 			center.add(41.881832);
 			center.add(-87.623177);
 		}
 //		this map returns lists of lat, lon, size grouped by category
-		Map<String, List> map = groupService.getCityCategoryGroupSize(city);
+		Map<String, List> map = groupService.getCityCategoryGroupMap(city);
 		map.put("center", center);
 		if(map!=null && map.size()!=0){
 			return new Result(200, null, null, map);

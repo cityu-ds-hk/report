@@ -74,6 +74,23 @@ public class CommonUtils {
 
         return resultMap;
     }
+    
+    public static Map<String, List> commonMaplist2Map(List<Map<String, Object>> list, String[] keys){
+        
+        if(list == null) { return null; }
+        Map<String, List> resultMap = new TreeMap<>();
+        for(String key: keys) {
+            resultMap.put(key, new ArrayList());
+        }
+        for(Map<String, Object> map: list) {
+            for(String key: keys) {
+                List listKey = resultMap.get(key);
+                listKey.add(map.get(key));
+            }
+        }
+//        list.forEach(map -> resultMap.putAll(map));
+        return resultMap;
+    }
 
     public static void main(String[] args) {
     }

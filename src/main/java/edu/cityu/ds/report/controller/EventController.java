@@ -5,13 +5,11 @@ import edu.cityu.ds.report.service.EventService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -85,6 +83,30 @@ public class EventController {
 			return new Result(200, null, null, map);
 		}else{
 			return new Result(202, null, "Program Failed!", null);
+		}
+	}
+	
+	//draw map
+	@RequestMapping(value = "/cityEventMap/{city}", method = RequestMethod.POST)
+	public Result getCityEventMap(@PathVariable(value = "city") String city, HttpServletRequest request){
+		List<Double> center = new ArrayList<Double>();
+		if(city .equals("San Francisco")){
+			center.add(37.78);
+			center.add(-122.42);
+		}else if(city .equals("New York")){
+			center.add(40.785091);
+			center.add(-73.968285);
+		}else{
+			center.add(41.881832);
+			center.add(-87.623177);
+		}
+//		this map returns lists of lat, lon, size grouped by category
+		Map<String, List> map = eventService.getCityEventMap(city);
+		map.put("center", center);
+		if(map!=null && map.size()!=0){
+			return new Result(200, null, null, map);
+		}else{
+			return new Result(202, null, "Program Failed", null);
 		}
 	}
 }

@@ -20,6 +20,7 @@ public interface EventMapper {
     List<Map<String, Object>> listEventNumByDate(String period, int interval, String startDate, String endDate);
 
     List<Map<String, Object>> listEventNumByDateWithCity(String period, int interval, String startDate, String endDate, Integer cityId);
-
-
+	
+	
+    List<Map<String, Object>> getCityEventMap(String city);
 }

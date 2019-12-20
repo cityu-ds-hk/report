@@ -19,5 +19,6 @@ public interface EventService {
 	Map<String, Object> getIncreasedCountTrend(Timestamp lTime, Timestamp rTime, Integer cityId);
 
 	Map<String, Object> getCategoryCount();
-
+	
+	Map<String, List> getCityEventMap(String city);
 }

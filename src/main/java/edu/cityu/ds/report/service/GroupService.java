@@ -24,7 +24,7 @@ public interface GroupService {
 	
 	Integer addGroup(int userId, String groupName, Integer categoryId, Integer topicId, Integer cityId, String visibility, Timestamp created);
 	
-	Map<String, List> getCityCategoryGroupSize(String cityName);
+	Map<String, List> getCityCategoryGroupMap(String cityName);
 	
 	Map<String, Object> getCityGroupSize(String cityName);
 }

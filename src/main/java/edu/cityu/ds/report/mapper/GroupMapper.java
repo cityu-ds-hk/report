@@ -20,4 +20,6 @@ public interface GroupMapper {
     List<Map<String, Object>> listGroupNumByDate(String period, int interval, String startDate, String endDate, Integer cityId);
     
     List<Map<String, Object>> getCityGroupSize(String cityName);
+	
+    List<Map<String, Object>> getCityCategoryGroupMap(String cityName);
 }

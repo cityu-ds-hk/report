@@ -71,4 +71,14 @@
         GROUP BY time
     </select>
 
+    <select id="getCityEventMap" resultType="java.util.HashMap">
+      select count(event_name) as num, vlat, vlon, category_id
+      from groups  g join (
+        select group_id, event_id, event_name, v.lat as vlat, v.lon as vlon
+        from events  natural join venues v) as t on g.group_id=t.group_id
+        where g.city_id in (
+          select city_id from cities where city like "%"#{city}"%"
+        ) group by vlat, vlon, category_id
+    </select>
+
 </mapper>

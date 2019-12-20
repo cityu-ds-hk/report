@@ -80,8 +80,10 @@ public class GroupServiceImpl implements GroupService {
 	}
 	
 	@Override
-	public Map<String, List> getCityCategoryGroupSize(String cityName) {
-		return null;
+	public Map<String, List> getCityCategoryGroupMap(String cityName) {
+		List<Map<String, Object>> result = groupMapper.getCityCategoryGroupMap(cityName);
+		Map<String, List> map = CommonUtils.commonMaplist2Map(result, new String[]{"vlat", "vlon", "num", "category_id"});
+		return map;
 	}
 	
 }
